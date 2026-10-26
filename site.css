@@ -611,8 +611,8 @@ html:not([data-site-theme=porcelain]) .guide-directory-group a[data-client][aria
 @media(max-width:650px){.hero-install{width:100%;justify-content:center;margin-top:26px}.hero-phone{--s:.82}}
 @media(max-width:370px){.hero-phone{--s:.74}}
 /* главная по плану (26.10.2026): один день с Зароком, возможности, семь Зароков, Зарок в вашей жизни, бесплатно и Plus, первый день; разметка — tools/build-site.cjs */
-.day-card h2,.ft-section h2,.home-characters h2,.life-section h2,.fp-section h2,.final-section h2{font-size:clamp(34px,4.6vw,62px);text-wrap:balance}
-.ft-section h2,.home-characters h2,.life-section h2,.fp-section h2{margin-bottom:32px}
+.day-card h2,.ft-section h2,.fp-section h2,.final-section h2{font-size:clamp(34px,4.6vw,62px);text-wrap:balance}
+.ft-section h2,.fp-section h2{margin-bottom:32px}
 
 .day-tabs{display:grid;gap:8px;margin-top:32px}
 .day-tabs button{display:flex;align-items:baseline;gap:16px;padding:15px 20px;border:1px solid var(--line);border-radius:18px;background:transparent;color:var(--muted);font:600 20px/1.2 var(--ui);letter-spacing:-.02em;text-align:left;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
@@ -646,19 +646,7 @@ html:not([data-site-theme=porcelain]) .guide-directory-group a[data-client][aria
 .ft-bars{display:flex;align-items:flex-end;gap:8px;height:120px;margin-top:16px}.ft-bars i{flex:1;border-radius:8px 8px 4px 4px;background:color-mix(in srgb,var(--accent) 32%,transparent)}.ft-bars i:nth-child(6){background:var(--accent)}
 .ft-chat{display:grid;gap:10px}.ft-chat p{max-width:88%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.45}
 .ft-chat .me{justify-self:end;background:var(--accent);color:var(--on-accent);border-bottom-right-radius:5px}.ft-chat .zk{justify-self:start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:5px}
-.ft-section>.text-link,.home-characters .wrap>.text-link{margin-top:26px;font-size:13px;font-weight:600}
-.home-characters h2{color:var(--ink)}
-.home-gallery{display:block}
-.character-stage.home-stage{min-height:560px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;overflow:hidden;border:0;background:url(/zarok-preview/img/artisan/bg-storybook-light.webp?v=060b7de954) center/cover}
-.home-stage .character-portrait{width:min(480px,86%);height:420px;margin-bottom:64px}
-.home-character-name{position:absolute;z-index:3;left:22px;top:22px;display:grid;gap:3px;max-width:min(340px,calc(100% - 44px));padding:14px 18px;border-radius:18px;background:#151b14c4;backdrop-filter:blur(8px)}
-.home-character-name b{font-size:26px;letter-spacing:-.04em;line-height:1.1}.home-character-name span{font-size:13px;color:var(--muted)}
-.home-stage .emotion-picker button{background:#151b14c4;color:#f0f0e5;font-size:11px;padding:9px 13px}
-.home-characters .character-choice{padding:12px 8px 14px}
-.life-section{padding-top:110px;padding-bottom:40px}
-.life-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
-.life-card{display:flex;flex-direction:column;gap:6px;min-width:0;padding:16px 18px 22px;border-radius:26px;background:color-mix(in srgb,var(--c) 16%,var(--surface))}
-.life-card img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;margin-bottom:6px}.life-card h3{font-size:21px;letter-spacing:-.03em}.life-card p{font-size:14px;line-height:1.5;color:var(--muted)}
+.ft-section>.text-link{margin-top:26px;font-size:13px;font-weight:600}
 .fp-section{padding-top:110px;padding-bottom:70px}
 .fp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:920px}
 .fp-card{padding:30px;border:1px solid var(--line);border-radius:28px;background:var(--surface);min-width:0}
@@ -670,9 +658,9 @@ html:not([data-site-theme=porcelain]) .guide-directory-group a[data-client][aria
 .final-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.final-actions .button{min-height:58px;font-size:15px}.final-actions .hero-install{margin-top:0}
 .final-qr-box{position:relative;z-index:1;display:grid;justify-items:center;gap:10px;padding:16px 16px 12px;border-radius:24px;background:#fff;color:#20261c;font-size:12px;font-weight:600}.final-qr{width:168px;height:168px}
 .final-zarok{position:absolute;right:16px;bottom:-6px;width:240px;height:240px;object-fit:contain}
-@media(max-width:1050px){.life-grid{grid-template-columns:repeat(5,minmax(210px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.life-card{scroll-snap-align:start}.final-section{padding-right:200px}.final-zarok{width:180px;height:180px}}
+@media(max-width:1050px){.final-section{padding-right:200px}.final-zarok{width:180px;height:180px}}
 @media(max-width:850px){.day-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}.day-tabs button{flex-direction:column;gap:2px;font-size:16px;padding:12px 14px}.ft-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.final-section{grid-template-columns:1fr;padding:40px 40px 200px}.final-qr-box{justify-self:start}}
-@media(max-width:650px){.day-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.ft-section{padding-bottom:80px}.ft-grid{grid-template-columns:1fr}.ft-wide{grid-column:auto}.ft-ui{min-height:0}.character-stage.home-stage{min-height:470px}.home-stage .character-portrait{height:320px;margin-bottom:70px}.home-character-name b{font-size:21px}.home-stage .emotion-picker button{font-size:10px;padding:8px 10px}.life-section,.fp-section{padding-top:80px}.fp-grid{grid-template-columns:1fr}.final-section{padding:32px 22px 190px;margin-bottom:80px}.final-qr-box{display:none}.final-actions .button{width:100%;justify-content:center}.final-zarok{width:170px;height:170px;right:50%;margin-right:-85px}}
+@media(max-width:650px){.day-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.ft-section{padding-bottom:80px}.ft-grid{grid-template-columns:1fr}.ft-wide{grid-column:auto}.ft-ui{min-height:0}.fp-section{padding-top:80px}.fp-grid{grid-template-columns:1fr}.final-section{padding:32px 22px 190px;margin-bottom:80px}.final-qr-box{display:none}.final-actions .button{width:100%;justify-content:center}.final-zarok{width:170px;height:170px;right:50%;margin-right:-85px}}
 
 /* «Чем Зарок отличается» на главной */
 .df-section{padding-top:30px;padding-bottom:110px}.df-section h2{font-size:clamp(34px,4.6vw,62px);text-wrap:balance;max-width:16ch;margin-bottom:32px}
@@ -714,3 +702,19 @@ html.is-scrolled body:has(.hero-page) .site-header,body:has(.hero-page) .site-he
 .day-copy{position:absolute;z-index:3;left:0;right:0;top:50%;transform:translateY(-50%);pointer-events:none}
 .day-card{pointer-events:auto;width:min(440px,100%);padding:34px 32px 26px;border-radius:30px;background:color-mix(in srgb,var(--surface) 84%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 24px 60px #2a2f2214}
 @media(max-width:850px){.day-page{display:flex;flex-direction:column}.day-copy{position:relative;top:auto;transform:none;order:-1;padding-top:70px}.day-card{width:100%;padding:0;background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}.day-stage{height:auto;aspect-ratio:1/1.02;margin-top:18px}.day-art{width:200%;left:-86%;top:auto;bottom:-2%;transform:none}}
+
+/* «Семь Зароков»: одна сцена (видео по кругу, без звука; при «меньше движения» — кадр), ниже — имена по порядку в кадре */
+.seven-section{padding-top:110px;padding-bottom:60px}
+.seven-section h2{font-size:clamp(34px,4.6vw,62px);text-wrap:balance}
+.seven-lead{margin-top:10px;font-size:17px;color:var(--muted)}
+.seven-stage{position:relative;margin-top:30px;aspect-ratio:1920/1086;border-radius:32px;overflow:hidden;background:#cfe0c4}
+.seven-still,.seven-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.seven-video{opacity:0;transition:opacity .6s}.seven-video.on{opacity:1}
+.seven-names{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin:18px 0 0;padding:0;list-style:none}
+.seven-names li{display:grid;gap:2px;padding:12px 12px 14px;border-radius:18px;background:color-mix(in srgb,var(--c) 14%,var(--surface))}
+.seven-names b{font-size:18px;letter-spacing:-.02em}
+.seven-names span{font-size:12px;font-weight:700;color:color-mix(in srgb,var(--c) 70%,var(--ink))}
+.seven-names small{font-size:12px;line-height:1.45;color:var(--muted)}
+.seven-section .text-link{margin-top:22px;font-size:13px;font-weight:600}
+@media(max-width:1050px){.seven-names{grid-template-columns:repeat(7,minmax(150px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.seven-names li{scroll-snap-align:start}}
+@media(max-width:650px){.seven-section{padding-top:80px}.seven-stage{border-radius:22px}}

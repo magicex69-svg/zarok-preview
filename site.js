@@ -89,11 +89,10 @@ function updateCharacter(value,save=false){
   const c=byId(value);if(!c)return;selected=value;
   document.querySelectorAll('.character-gallery').forEach(g=>{
     g.style.setProperty('--character-color',c.color);
-    /* на главной галерея короче (имя, фраза, портрет): чего нет в разметке, то пропускаем */
-    const put=(sel,text)=>{const n=g.querySelector(sel);if(n)n.textContent=text;};
+    const put=(sel,text)=>{g.querySelector(sel).textContent=text;};
     put('[data-character-number]','ФОРМА '+c.number+' / VII');put('[data-character-tone]',c.tone);put('[data-character-origin]',c.level+' · '+c.chakra);
     put('[data-character-name]',c.name);put('[data-character-lead]',c.lead);put('[data-character-quote]','«'+c.tag+'»');put('[data-character-story]',c.story);
-    const list=g.querySelector('[data-character-details]');if(list)list.replaceChildren(...c.details.map(t=>{const li=document.createElement('li');li.textContent=t;return li;}));
+    g.querySelector('[data-character-details]').replaceChildren(...c.details.map(t=>{const li=document.createElement('li');li.textContent=t;return li;}));
     showPortrait(g.querySelector('.character-portrait'),c);
   });
   warm(c);
@@ -169,6 +168,14 @@ if(day){
     t.addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft','ArrowDown','ArrowUp'].includes(e.key))return;e.preventDefault();const n=(i+(e.key==='ArrowRight'||e.key==='ArrowDown'?1:-1)+tabs.length)%tabs.length;held=true;clearTimeout(timer);show(n);tabs[n].focus();});});
   if('IntersectionObserver' in window)new IntersectionObserver(es=>{seen=es[0].isIntersecting;plan();},{threshold:.35}).observe(day);
   motionHooks.push(plan);
+}
+/* «Семь Зароков» на главной: видео по кругу идёт, только пока блок на экране; при «меньше движения» остаётся кадр */
+const seven=document.querySelector('[data-seven-video]');
+if(seven){
+  let near=false;
+  const sync=()=>{if(near&&!isReduced()){seven.preload='auto';seven.play().then(()=>seven.classList.add('on')).catch(()=>{});}else{seven.pause();seven.classList.toggle('on',!isReduced()&&seven.currentTime>0);}};
+  if('IntersectionObserver' in window)new IntersectionObserver(es=>{near=es[0].isIntersecting;sync();},{threshold:.2}).observe(seven);
+  motionHooks.push(sync);
 }
 const tasks=[true,true,false,false];
 function updateProgress(){
