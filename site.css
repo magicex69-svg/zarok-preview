@@ -153,11 +153,6 @@ body:has(.hc-center) [data-cycle-theme]{display:none}
 /* английская версия: честная пометка, что приложение пока на русском */
 .en-notice{margin:0;padding:10px 16px;background:var(--soft);color:var(--ink);font:500 14px/1.5 var(--ui);text-align:center;border-bottom:1px solid var(--line)}
 /* страница «Telegram»: карточки возможностей бота и наборы стикеров и эмодзи */
-.tg-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.tg-card{padding:22px;border:1px solid var(--line);border-radius:22px;background:var(--surface);min-width:0}
-.tg-card h3{font-size:16px;line-height:1.35;margin:0 0 8px}
-.tg-card p{font-size:13px;line-height:1.65;margin:0;color:var(--muted)}
-.tg-lead{max-width:680px;margin-bottom:26px!important}
 .tg-sets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 .tg-set{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:28px;border:1px solid var(--line);border-radius:26px;background:var(--surface)}
 .tg-set h3{font-size:26px;line-height:1.2;margin:18px 0 10px}
@@ -165,8 +160,8 @@ body:has(.hc-center) [data-cycle-theme]{display:none}
 .tg-previews{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%;margin-top:20px}
 .tg-previews img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;padding:5px;border-radius:14px;background:var(--soft)}
 .tg-set .button{margin-top:24px;align-self:stretch}
-@media(max-width:1050px){.tg-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.tg-sets{grid-template-columns:minmax(0,1fr)}.tg-previews{grid-template-columns:repeat(8,minmax(0,1fr))}}
-@media(max-width:650px){.tg-cards{grid-template-columns:minmax(0,1fr)}.tg-set{padding:24px}.tg-previews{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:1050px){.tg-sets{grid-template-columns:minmax(0,1fr)}.tg-previews{grid-template-columns:repeat(8,minmax(0,1fr))}}
+@media(max-width:650px){.tg-set{padding:24px}.tg-previews{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(min-width:1051px){.tg-set p{min-height:48px}}
 
 /* Connection directory: compact introduction, original client marks, practical guide. */
@@ -823,3 +818,61 @@ body:has(.hero-page) .site-header .brand img{width:calc(30px + 6px * var(--k));h
  html:not([data-motion=reduce]) .glass-panel,html:not([data-motion=reduce]) .fx-player,html:not([data-motion=reduce]) .ai-block .ai-phone{animation:panel-in linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
 }
 @keyframes panel-in{from{opacity:.35;transform:translateY(70px) scale(.96)}to{opacity:1;transform:none}}
+/* «Возможности»: плеер по ширине стеклянных плашек ниже */
+.fx-top.wrap{width:min(1320px,calc(100% - 40px))}
+/* «Курсы и привычки» и «Зарок в Telegram» (26 октября 2026): первый экран с телефоном, стеклянные плашки, наглядные карточки */
+.crs-hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:60px;align-items:center;padding-top:56px;padding-bottom:40px}
+.crs-hero h1{font-size:clamp(44px,6vw,82px);line-height:.98;letter-spacing:-.06em;margin:18px 0 22px}
+.crs-hero h1 em{font-weight:400;color:var(--accent)}
+.crs-hero-copy>p{max-width:520px;font-size:15px;line-height:1.75;color:var(--muted);margin:0}
+.crs-phone{--w:300px}
+.crs-band h2,.crs-section h2{font-size:clamp(30px,3.6vw,46px);letter-spacing:-.05em;margin:0 0 26px}
+.crs-modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.crs-mode,.crs-card{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:22px;border:1px solid var(--line);border-radius:26px;background:var(--surface)}
+.crs-visual{display:grid;place-items:center;width:100%;aspect-ratio:382/235;margin-bottom:20px;border-radius:18px;background:var(--soft);overflow:hidden}
+.crs-visual>img{width:100%;height:auto;display:block}
+.crs-ic{display:grid;place-items:center;width:40px;height:40px;margin-bottom:14px;border-radius:13px;background:var(--soft);color:var(--accent)}
+.crs-ic svg{width:21px;height:21px}
+.crs-mode h3,.crs-card h3{font-size:22px;letter-spacing:-.03em;margin:0 0 8px}
+.crs-mode p{flex:1;margin:0 0 16px;font-size:14px;line-height:1.65;color:var(--muted)}
+.crs-mode .text-link svg{width:16px;height:16px;vertical-align:-3px}
+.crs-habit{list-style:none;display:grid;gap:8px;width:82%;margin:0;padding:0}
+.crs-habit li{display:grid;grid-template-columns:20px 44px 1fr;align-items:center;gap:8px;padding:10px 12px;border:1px solid #e7e8e2;border-radius:12px;background:#fff;font-size:13px;color:#20251c}
+.crs-habit i{width:18px;height:18px;border-radius:6px;border:1.5px solid #c9cdc0}
+.crs-habit .done i{background:#3f6650;border-color:#3f6650}.crs-habit .done b{text-decoration:line-through;color:#8a9184;font-weight:500}
+.crs-habit time{font:500 11px/1 var(--ui);color:#6d7766}
+.crs-section{padding-top:70px;padding-bottom:20px}
+.crs-cycle{padding:22px 24px;border:1px solid var(--line);border-radius:24px;background:var(--surface);margin-bottom:20px}
+.crs-cycle-top{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;margin-bottom:14px;font-size:13px;color:var(--muted)}
+.crs-cycle-top b{font-size:17px;color:var(--ink);margin-right:auto}
+.crs-bar{display:grid;grid-template-columns:14fr 3fr 14fr 3fr 14fr 3fr;gap:5px}
+.crs-bar span{display:flex;align-items:center;height:34px;padding:0 10px;border-radius:10px;background:repeating-linear-gradient(135deg,var(--soft) 0 6px,color-mix(in srgb,var(--soft) 55%,var(--surface)) 6px 12px);overflow:hidden}
+.crs-bar span.on{background:color-mix(in srgb,var(--accent) 78%,var(--surface))}
+.crs-bar b{font-size:11px;font-weight:600;white-space:nowrap;color:var(--muted)}.crs-bar .on b{color:#fff}
+.crs-bar span:not(.on) b{display:none}
+.crs-bar.small{gap:3px;margin:4px 0}.crs-bar.small span{height:10px;padding:0;border-radius:4px}.crs-bar.small b{display:none}
+.crs-steps,.tg-start{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0;padding:0}
+.tg-start{grid-template-columns:repeat(3,minmax(0,1fr))}
+.crs-steps li,.tg-start li{counter-increment:s;min-width:0;padding:22px;border:1px solid var(--line);border-radius:22px;background:var(--surface)}
+.crs-steps li::before,.tg-start li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;margin-bottom:14px;border-radius:50%;background:var(--accent);color:#fff;font-size:14px;font-weight:700}
+.crs-steps b,.tg-start b{display:block;font-size:17px;margin-bottom:6px}
+.crs-steps p,.tg-start p{margin:0;font-size:13px;line-height:1.65;color:var(--muted)}
+.crs-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.crs-card h2{font-size:26px;letter-spacing:-.035em;margin:0 0 16px}
+.crs-list{list-style:none;display:grid;gap:12px;margin:0;padding:0}
+.crs-list li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:14px;line-height:1.6}
+.crs-list svg{width:20px;height:20px;margin-top:2px;color:var(--accent)}
+.crs-note{margin:18px 0 0;font-size:12px;color:var(--muted)}
+.crs-ai{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:48px;align-items:center}
+.crs-ai h2{margin:14px 0 14px}.crs-ai p{font-size:15px;line-height:1.7;color:var(--muted);margin:0 0 24px}
+.crs-chat{display:grid;gap:10px;padding:18px;border-radius:26px;background:#f8f8f7;font-family:var(--ui)}
+.crs-chat .aic-me{max-width:90%}.crs-chat .aic-plan p{margin:0;font-size:13px;line-height:1.45;color:#20251c}
+.tg-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+.tg-groups dl{display:grid;gap:4px;margin:6px 0 0}
+.tg-groups dt{font-size:15px;font-weight:700;margin-top:10px}
+.tg-groups dd{margin:0;font-size:13px;line-height:1.6;color:var(--muted)}
+#sets{scroll-margin-top:90px}
+@media(max-width:1050px){.crs-modes,.tg-groups{grid-template-columns:minmax(0,1fr)}.crs-mode{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);column-gap:24px}.crs-mode .crs-visual{grid-row:span 4;margin:0}.crs-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:850px){.crs-hero{grid-template-columns:1fr;gap:36px}.crs-phone{justify-self:center;--w:270px}.crs-two,.crs-ai,.tg-start{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:650px){.crs-hero{padding-top:36px}.crs-mode{display:flex}.crs-mode .crs-visual{margin-bottom:18px}.crs-steps{grid-template-columns:minmax(0,1fr)}.crs-bar b{font-size:9px;padding:0}.crs-bar span{padding:0 5px}.crs-section{padding-top:50px}}
+.crs-section+.mcp-section{padding-top:70px}
