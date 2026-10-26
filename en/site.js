@@ -1,27 +1,22 @@
-import { characters } from './site-data.js?v=3c9b9649eb';
-
 const KEY='zarok.site.preferences.v1';
 const themes=['porcelain','obsidian','cobalt','copper'];
 const names={porcelain:'Porcelain',obsidian:'Obsidian',cobalt:'Cobalt',copper:'Copper'};
 const media=window.matchMedia('(prefers-reduced-motion: reduce)');
-const defaults={rememberDesign:false,rememberCharacter:false,reducedMotion:null};
-let preferences={...defaults},material='porcelain',selected='root',emotion='idle',toastTimer;
+const defaults={rememberDesign:false,reducedMotion:null};
+let preferences={...defaults},material='porcelain',toastTimer;
 try{
   const stored=JSON.parse(localStorage.getItem(KEY)||'null');
   if(stored&&typeof stored==='object'&&Number.isFinite(stored.updatedAt)&&Date.now()-stored.updatedAt<365*86400000){
-    preferences={rememberDesign:stored.rememberDesign===true,rememberCharacter:stored.rememberCharacter===true,reducedMotion:typeof stored.reducedMotion==='boolean'?stored.reducedMotion:null};
+    preferences={rememberDesign:stored.rememberDesign===true,reducedMotion:typeof stored.reducedMotion==='boolean'?stored.reducedMotion:null};
     if(preferences.rememberDesign&&themes.includes(stored.material))material=stored.material;
-    if(preferences.rememberCharacter&&characters.some(c=>c.id===stored.character))selected=stored.character;
   }else if(stored&&Number.isFinite(stored.updatedAt)&&Date.now()-stored.updatedAt>=365*86400000){localStorage.removeItem(KEY);}
 }catch{}
-const byId=id=>characters.find(c=>c.id===id);
 const isReduced=()=>preferences.reducedMotion===true||media.matches;
 const motionHooks=[];
 function applyMotion(){document.documentElement.dataset.motion=isReduced()?'reduce':'normal';motionHooks.forEach(f=>f());}
 function persist(){
   const record={...preferences,updatedAt:Date.now()};
   if(preferences.rememberDesign)record.material=material;
-  if(preferences.rememberCharacter)record.character=selected;
   try{localStorage.setItem(KEY,JSON.stringify(record));return true;}catch{return false;}
 }
 function toast(text){const node=document.querySelector('.site-toast');node.textContent=text;node.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('visible'),4000);}
@@ -32,109 +27,9 @@ function setMaterial(value,save=false){
   const control=document.querySelector('[data-cycle-theme]');if(control)control.setAttribute('aria-label','Site look: '+names[value]+'. Switch');
   if(save&&preferences.rememberDesign&&!persist())toast('Couldn’t save the look in this browser.');
 }
-
-const loaded=new Map(),queue=[];let running=0,rushing=0;
-function pump(){
-  for(let i=0;i<queue.length;){
-    const job=queue[i];
-    
-    if(job.urgent?running<5:(rushing===0&&running<2)){queue.splice(i,1);running++;if(job.urgent)rushing++;job.start();}else i++;
-  }
-}
-function load(src,urgent=false){
-  if(!src)return Promise.reject();
-  let job=loaded.get(src);
-  if(job){
-    
-    if(urgent&&!job.urgent&&!job.started){job.urgent=true;const i=queue.indexOf(job);if(i>0){queue.splice(i,1);queue.unshift(job);}pump();}
-    return job.ready;
-  }
-  job={urgent,started:false,done:false};
-  job.ready=new Promise((ok,fail)=>{
-    job.start=()=>{
-      job.started=true;const im=new Image();im.decoding='async';im.draggable=false;if(job.urgent)im.fetchPriority='high';
-      
-      const free=()=>{running--;if(job.rushed)rushing--;};job.rushed=job.urgent;
-      im.onload=()=>{job.done=true;free();ok(src);pump();if(im.decode)im.decode().catch(()=>{});};
-      im.onerror=()=>{loaded.delete(src);free();fail();pump();};
-      im.src=src;job.im=im;
-    };
-  });
-  job.ready.catch(()=>{});
-  loaded.set(src,job);if(urgent)queue.unshift(job);else queue.push(job);pump();
-  return job.ready;
-}
-const isLoaded=src=>loaded.get(src)?.done===true;
-let portraitTurn=0;
-function showPortrait(img,c){
-  const big=c.images[emotion],light=c.small?.[emotion],turn=++portraitTurn,stage=img.closest('.character-stage');
-  img.alt='Zarok '+c.name+', '+c.animal.toLowerCase();
-  const put=src=>{if(turn!==portraitTurn)return;if(img.getAttribute('src')!==src)img.src=src;stage?.classList.remove('is-loading');};
-  if(isLoaded(big)){put(big);return;}
-  if(isLoaded(light))put(light);
-  else{
-    
-    stage?.classList.add('is-loading');
-    if(light)load(light,true).then(src=>{if(!isLoaded(big))put(src);}).catch(()=>{});
-  }
-  load(big,true).then(put).catch(()=>{if(turn===portraitTurn){if(!light)img.src=big;stage?.classList.remove('is-loading');}});
-}
-
-function warm(c){if(!c)return;Object.values(c.small||{}).forEach(src=>load(src).catch(()=>{}));}
-function updateCharacter(value,save=false){
-  const c=byId(value);if(!c)return;selected=value;
-  document.querySelectorAll('.character-gallery').forEach(g=>{
-    g.style.setProperty('--character-color',c.color);
-    const put=(sel,text)=>{g.querySelector(sel).textContent=text;};
-    put('[data-character-number]','FORM '+c.number+' / VII');put('[data-character-tone]',c.tone);put('[data-character-origin]',c.level+' · '+c.chakra);
-    put('[data-character-name]',c.name);put('[data-character-lead]',c.lead);put('[data-character-quote]','“'+c.tag+'”');put('[data-character-story]',c.story);
-    g.querySelector('[data-character-details]').replaceChildren(...c.details.map(t=>{const li=document.createElement('li');li.textContent=t;return li;}));
-    showPortrait(g.querySelector('.character-portrait'),c);
-  });
-  warm(c);
-  document.querySelectorAll('[data-character]').forEach(b=>{const on=b.dataset.character===value;b.classList.toggle('selected',on);b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;});
-  if(save){history.replaceState(null,'','#'+value);if(preferences.rememberCharacter&&!persist())toast('Couldn’t save your chosen Zarok.');}
-}
-
-function setCharacter(value,save=true){updateCharacter(value,save);}
 setMaterial(material);applyMotion();
 media.addEventListener?.('change',applyMotion);
-const incoming=location.hash.slice(1);if(byId(incoming))selected=incoming;
-if(document.querySelector('.character-gallery')){
-  updateCharacter(selected);
-  if(byId(incoming))requestAnimationFrame(()=>document.querySelector('.character-section').scrollIntoView({behavior:'instant'}));
-  
-  const idle=window.requestIdleCallback||(f=>setTimeout(f,400));
-  idle(()=>characters.forEach(c=>Object.values(c.small||{}).forEach(src=>load(src).catch(()=>{}))));
-}
 document.querySelector('[data-cycle-theme]')?.addEventListener('click',()=>{setMaterial(themes[(themes.indexOf(material)+1)%themes.length],true);toast('Look: '+names[material]);});
-document.querySelectorAll('[data-character]').forEach(b=>{
-  
-  const ahead=()=>{const c=byId(b.dataset.character);if(c){load(c.small?.[emotion],true).catch(()=>{});load(c.images[emotion],true).catch(()=>{});}};
-  b.addEventListener('pointerenter',ahead);b.addEventListener('pointerdown',ahead);b.addEventListener('focus',ahead);
-  b.addEventListener('click',()=>setCharacter(b.dataset.character));
-  b.addEventListener('keydown',e=>{
-    if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key))return;e.preventDefault();
-    const i=characters.findIndex(c=>c.id===selected);
-    const next=e.key==='Home'?0:e.key==='End'?characters.length-1:(i+(e.key==='ArrowRight'?1:-1)+characters.length)%characters.length;
-    const target=document.querySelector('[data-character="'+characters[next].id+'"]');
-    setCharacter(characters[next].id);target.focus({preventScroll:true});target.scrollIntoView({block:'nearest',inline:'nearest'});
-  });
-});
-document.querySelectorAll('[data-emotion]').forEach(b=>{const ahead=()=>{const c=byId(selected),e=b.dataset.emotion;if(c&&c.images[e]){load(c.small?.[e],true).catch(()=>{});load(c.images[e],true).catch(()=>{});}};b.addEventListener('pointerenter',ahead);b.addEventListener('pointerdown',ahead);b.addEventListener('focus',ahead);});
-document.querySelectorAll('[data-emotion]').forEach(b=>b.addEventListener('click',()=>{
-  emotion=b.dataset.emotion;if(!byId(selected).images[emotion])return;
-  document.querySelectorAll('[data-emotion]').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));
-  updateCharacter(selected);
-}));
-document.querySelector('[data-share-character]')?.addEventListener('click',async()=>{
-  const url=location.origin+(document.documentElement.lang==='ru'?'/zarok-preview/ru':'')+'/zarok-preview/characters#'+selected;
-  try{
-    if(navigator.share){await navigator.share({title:'Zarok '+byId(selected).name,url});return;}
-    if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);toast('Link to this Zarok copied.');return;}
-    toast('Open the address bar to copy the link to this Zarok.');
-  }catch(e){if(e.name!=='AbortError')toast('Couldn’t share. The link to the character is in the address bar.');}
-});
 
 
 document.querySelectorAll('[data-phone-art]').forEach(art=>{const ui=art.querySelector('.hero-ui'),fit=()=>ui.style.setProperty('--s',art.clientWidth/2688);
@@ -148,8 +43,9 @@ if(hero){
   const tick=()=>{set(!on);timer=setTimeout(tick,on?3800:2600);};
   const run=()=>{clearTimeout(timer);set(false);if(!isReduced())timer=setTimeout(tick,1800);};
   motionHooks.push(run);run();
-  const scrolled=()=>document.documentElement.classList.toggle('is-scrolled',scrollY>hero.offsetHeight*.6);
-  scrolled();addEventListener('scroll',scrolled,{passive:true});
+  
+  let raf=0;const grow=()=>{raf=0;document.documentElement.style.setProperty('--hp',Math.min(1,Math.max(0,scrollY/(hero.offsetHeight*.6))).toFixed(3));};
+  grow();addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(grow);},{passive:true});addEventListener('resize',grow);
 }
 
 const day=document.querySelector('[data-day]');
@@ -216,24 +112,20 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.cont
 
 const dialog=document.getElementById('privacy-dialog');let privacyTrigger;
 document.querySelectorAll('[data-privacy-open]').forEach(b=>b.addEventListener('click',()=>{
-  privacyTrigger=b;document.getElementById('pref-design').checked=preferences.rememberDesign;document.getElementById('pref-character').checked=preferences.rememberCharacter;document.getElementById('pref-motion').checked=isReduced();dialog.showModal();
+  privacyTrigger=b;document.getElementById('pref-design').checked=preferences.rememberDesign;document.getElementById('pref-motion').checked=isReduced();dialog.showModal();
 }));
 document.querySelector('[data-dialog-close]').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('close',()=>privacyTrigger?.focus({preventScroll:true}));
 document.querySelector('[data-preferences-save]').addEventListener('click',()=>{
-  preferences={rememberDesign:document.getElementById('pref-design').checked,rememberCharacter:document.getElementById('pref-character').checked,reducedMotion:document.getElementById('pref-motion').checked};
+  preferences={rememberDesign:document.getElementById('pref-design').checked,reducedMotion:document.getElementById('pref-motion').checked};
   applyMotion();const ok=persist();dialog.close();toast(ok?'Your choice is saved on this device.':'Choice applied. The browser didn’t allow saving it.');
 });
 document.querySelector('[data-preferences-essential]').addEventListener('click',()=>{
-  preferences={...defaults};applyMotion();const ok=persist();dialog.close();toast(ok?'The look and Zarok won’t be remembered.':'The look and Zarok aren’t remembered; saving the choice isn’t available.');
+  preferences={...defaults};applyMotion();const ok=persist();dialog.close();toast(ok?'The look won’t be remembered.':'The look isn’t remembered; saving the choice isn’t available.');
 });
 document.querySelector('[data-preferences-reset]').addEventListener('click',()=>{
   let ok=true;try{localStorage.removeItem(KEY);}catch{ok=false;}
-  preferences={...defaults};setMaterial('porcelain');selected='root';emotion='idle';
-  if(document.querySelector('.character-gallery')){
-    updateCharacter(selected);document.querySelectorAll('[data-emotion]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.emotion==='idle')));
-    if(byId(location.hash.slice(1)))history.replaceState(null,'',location.pathname+location.search);
-  }
+  preferences={...defaults};setMaterial('porcelain');
   applyMotion();dialog.close();toast(ok?'Saved site settings deleted.':'Settings reset on this page; the browser didn’t allow deleting the saved data.');
 });
 if('IntersectionObserver' in window&&!isReduced()){
@@ -315,3 +207,9 @@ document.addEventListener('click',function(e){
   };
   track.addEventListener('pointerup',end);track.addEventListener('pointercancel',end);
 })();
+
+
+document.querySelectorAll('.open-menu').forEach(m=>{
+  document.addEventListener('click',e=>{if(m.open&&!m.contains(e.target))m.open=false;});
+  m.addEventListener('keydown',e=>{if(e.key==='Escape'&&m.open){m.open=false;m.querySelector('summary').focus();}});
+});
