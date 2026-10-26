@@ -661,7 +661,7 @@ html:not([data-site-theme=porcelain]) .guide-directory-group a[data-client][aria
 /* первый экран по картинке (26.10.2026): кадр 2688 × 1520 с вырезанным экраном телефона, под ним экран «Сегодня» (heroSection в tools/build-site.cjs);
    шапка на главной: на первом экране — узкая стеклянная плашка, с прокруткой плавно разворачивается во всю ширину (--hp от 0 до 1 ставит public/site.js) */
 body:has(.hero-page) .site-header{--k:var(--hp,0);position:fixed;left:50%;right:auto;top:calc(12px * (1 - var(--k)));transform:translateX(-50%);
- width:calc(min(1000px,100% - 32px) + (100% - min(1000px,100% - 32px)) * var(--k));border:1px solid color-mix(in srgb,var(--line) calc(100% - 40% * var(--k)),transparent);
+ width:calc(min(860px,100% - 32px) + (100% - min(860px,100% - 32px)) * var(--k));border:1px solid color-mix(in srgb,var(--line) calc(100% - 40% * var(--k)),transparent);
  border-radius:calc(24px * (1 - var(--k)));background:color-mix(in srgb,var(--paper) calc(62% + 28% * var(--k)),transparent);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);
  box-shadow:0 12px 34px color-mix(in srgb,#262c1f calc(14% * (1 - var(--k))),transparent)}
 body:has(.hero-page) .site-header .header-inner{width:calc(100% - 28px - (100% - min(1200px,100% - 64px) - 28px) * var(--k));height:calc(58px + 27px * var(--k));gap:calc(16px + 18px * var(--k))}
@@ -725,9 +725,12 @@ body:has(.hero-page) .site-header .brand img{width:calc(30px + 6px * var(--k));h
 .open-pop svg{flex:none;width:36px;height:36px;padding:8px;border-radius:12px;background:var(--soft);fill:none;stroke:currentColor;stroke-width:1.7}
 .open-pop b{display:block;font-size:14px}.open-pop small{display:block;font-size:12px;color:var(--muted)}
 @media(max-width:650px){.open-menu{display:none}}
-/* стык первого экрана и «Одного дня»: полоса функций — стеклянная плашка ровно на стыке, верх сцены вливается в пол первого экрана */
+/* стыки «Одного дня»: верх сцены вливается в пол первого экрана; низ — в фон страницы, и на нижнем стыке лежит стеклянная полоса функций */
 .hero-seam{position:relative;z-index:6;height:0}
 .hero-seam .hero-strip{transform:translateY(-50%);padding:16px 26px;border:1px solid #ffffff80;border-radius:22px;background:color-mix(in srgb,var(--paper) 58%,transparent);
  backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:0 18px 44px #2a2f2216}
 .day-stage::before{content:"";position:absolute;inset:0 0 auto;z-index:2;height:22%;background:linear-gradient(rgb(232 231 214),rgb(232 231 214 / 0));pointer-events:none}
-@media(max-width:850px){.hero-seam{height:auto}.hero-seam .hero-strip{transform:none;margin-top:16px}.day-stage::before{display:none}}
+.day-stage::after{content:"";position:absolute;inset:auto 0 0;z-index:2;height:20%;background:linear-gradient(color-mix(in srgb,var(--paper) 0%,transparent),var(--paper));pointer-events:none}
+@media(max-width:850px){.hero-seam{height:auto}.hero-seam .hero-strip{transform:none;margin-top:16px}.day-stage::before,.day-stage::after{display:none}}
+.hero-seam+.ft-section{padding-top:100px}
+@media(max-width:850px){.hero-seam+.ft-section{padding-top:60px}}

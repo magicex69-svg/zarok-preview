@@ -70,9 +70,13 @@ if(sevenStage){
 
 const seven=document.querySelector('[data-seven-video]');
 if(seven){
-  let near=false;
-  const sync=()=>{if(near&&!isReduced()){seven.preload='auto';seven.play().then(()=>seven.classList.add('on')).catch(()=>{});}else{seven.pause();seven.classList.toggle('on',!isReduced()&&seven.currentTime>0);}};
-  if('IntersectionObserver' in window)new IntersectionObserver(es=>{near=es[0].isIntersecting;sync();},{threshold:.2}).observe(seven);
+  let shown=false;
+  const sync=()=>{if(shown&&!isReduced()){seven.play().then(()=>seven.classList.add('on')).catch(()=>seven.addEventListener('canplay',sync,{once:true}));}else seven.pause();};
+  if('IntersectionObserver' in window){
+    
+    new IntersectionObserver((es,o)=>{if(es[0].isIntersecting&&!isReduced()){seven.preload='auto';o.disconnect();}},{rootMargin:'100% 0px'}).observe(seven);
+    new IntersectionObserver(es=>{shown=es[0].isIntersecting;sync();},{threshold:.15}).observe(seven);
+  }
   motionHooks.push(sync);
 }
 const tasks=[true,true,false,false];
