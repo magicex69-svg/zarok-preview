@@ -703,6 +703,6 @@ html.is-scrolled body:has(.hero-page) .site-header,body:has(.hero-page) .site-he
 .hero-copy>*{pointer-events:auto}
 .hero-page .hero-copy{font-size:clamp(80px,11.6vw,214px)}
 .hero-page .hero-mark{position:relative;display:block;margin:0;font:800 1em/.9 Unbounded,var(--ui);letter-spacing:-.07em;color:#596940;--leaf:color-mix(in srgb,#596940 72%,#9fc27a)}
-.hero-k{position:relative;color:transparent;margin-left:.03em}.hero-k svg{position:absolute;left:-.07em;fill:#596940;color:#596940;overflow:visible}.hero-k .leaf{fill:var(--leaf)}
+.hero-k{position:relative;color:transparent}.hero-k svg{position:absolute;left:-.11em;fill:#596940;color:#596940;overflow:visible}.hero-k .leaf{fill:var(--leaf)}
 .hero-page .hero-tag{margin:.35em 0 0;font:700 .155em/1.2 var(--ui);letter-spacing:-.03em;color:#272d25;white-space:nowrap}
 @media(max-width:850px){/* на телефоне — крупнее: верх экрана уходит за кадр, телефон и Топа сразу под знаком, верхний край картинки растворяется в фоне */.hero-stage{position:relative;overflow:hidden;aspect-ratio:1/1;margin-top:-4vw;-webkit-mask-image:linear-gradient(transparent,#000 22%);mask-image:linear-gradient(transparent,#000 22%)}.hero-art{position:absolute;width:250%;left:-145%;bottom:-9.3%}.hero-copy{position:relative;top:auto;transform:none}.hero-page{display:flex;flex-direction:column-reverse}.hero-page .hero-copy{font-size:min(24vw,150px);padding-top:.45em}}
