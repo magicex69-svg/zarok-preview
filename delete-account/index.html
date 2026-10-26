@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deleting your account and data | Zarok</title>
+<link rel="canonical" href="https://zarok.app/delete-account"><link rel="alternate" hreflang="ru" href="https://zarok.app/ru/delete-account"><link rel="alternate" hreflang="en" href="https://zarok.app/delete-account"><link rel="alternate" hreflang="x-default" href="https://zarok.app/delete-account">
+<meta name="description" content="How to delete your user record and all data of the Zarok app.">
+<link rel="stylesheet" href="/zarok-preview/page.css?v=865faab29a">
+<link rel="stylesheet" href="/zarok-preview/legal-site.css?v=7a220a3485">
+<link rel="icon" href="/zarok-preview/icon.svg" type="image/svg+xml">
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a class="brand" href="/zarok-preview/">
+    <img src="/zarok-preview/icon.svg" width="36" height="36" alt="">
+    <span><b>Zarok</b><span>calendar and day planner</span></span>
+  </a>
+  <a class="lang-switch" href="/zarok-preview/ru/delete-account" lang="ru" hreflang="ru">Русский</a>
+</header>
+
+<h1>Deleting your account and data</h1>
+<p class="upd">The Zarok app · owner and responsible party: Zarok Studio</p>
+
+<p>You can delete your user record in the app, with a request on this page or by email. Deleted data cannot be restored.
+Below is what is erased right away and what is kept for some time by law or to prevent abuse.</p>
+
+<h2>In the app: right away</h2>
+<p>If you signed in with Google or by email:</p>
+<ol class="steps">
+  <li>Open the <strong>Profile</strong> tab.</li>
+  <li>Tap your name at the top to open <strong>My profile</strong>.</li>
+  <li>Under <strong>Account management</strong>, tap <strong>Delete account…</strong>.</li>
+  <li>Tick <strong>Delete account</strong> and confirm.</li>
+</ol>
+<p>The account is deleted on all devices where you signed in to it.</p>
+<p>Without an account: <strong>Profile</strong> → <strong>My profile</strong> → <strong>Data and sync</strong> → <strong>Reset data</strong>,
+tick <strong>Delete account</strong> and confirm. You can also erase individual sections there.</p>
+<p>After deletion, the app keeps working on this device without sync to the server.</p>
+
+<div class="card">
+  <h2>What is erased right away</h2>
+  <ul>
+    <li>The user record on the server: tasks, completion marks, progress, habits and courses.</li>
+    <li>The account: email address, password hash, the links to Google and Telegram.</li>
+    <li>Earlier versions of entries, the conversation with AI Zarok and the conversation with the developer.</li>
+    <li>Task images on our server.</li>
+    <li>Rewards, gifts, leaves, invitations, friends and counters stored in the user record.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>What is kept, and for how long</h2>
+  <ul>
+    <li><strong>Device and user record fingerprints</strong>: codes instead of the numbers themselves. They prevent
+    receiving the same reward or gift twice. Device fingerprints that protect invitations stay in the shared
+    list of devices for up to 400 days.</li>
+    <li><strong>The cost accounting log</strong>: up to 3 years. It contains no name, email or text of entries.</li>
+    <li><strong>The count of AI Zarok requests by Google Play purchase</strong>: a purchase fingerprint and the time
+    of the last request. It is removed after 45 days without requests under that purchase.</li>
+    <li><strong>The log of refund calculations</strong>: the date, the purchase fingerprint and the shares used,
+    for up to 24 months. It contains no name, email or user record number.</li>
+    <li><strong>Invitations.</strong> The other person in an invitation keeps a note without a name: the date and the outcome.</li>
+    <li><strong>Reports.</strong> Reports about your user record are deleted, and your own reports lose their author.
+    Reports about people in Friends are kept for 180 days, other reports for up to a year.</li>
+    <li><strong>Technical server logs and error reports</strong>: 14 days.</li>
+    <li><strong>Images in Telegram.</strong> Copies already sent to your chat with the Zarok bot stay in your chat.
+    You can delete them in Telegram.</li>
+    <li><strong>Purchases.</strong> Google Play keeps your purchase history under its own rules. Deleting the account
+    does not cancel a subscription: cancel it in Google Play.</li>
+  </ul>
+</div>
+
+<h2>Without the app: a request on this page</h2>
+<p>If the app is already gone, send a request here.</p>
+
+<form id="del-form" class="dform" novalidate>
+  <label class="dform-label" for="df-who">Account email or Telegram</label>
+  <input class="dform-input" id="df-who" name="who" type="text" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" required placeholder="name@example.com or @username">
+  <p class="dform-hint">The email you signed in with, or your Telegram username or ID.</p>
+
+  <label class="dform-label" for="df-contact">Email for our reply</label>
+  <input class="dform-input" id="df-contact" name="contact" type="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" required>
+
+  <fieldset class="dform-set">
+    <legend class="dform-label">What to delete</legend>
+    <label class="dform-opt"><input type="radio" name="scope" value="all" checked> Delete the account and all data</label>
+    <label class="dform-opt"><input type="radio" name="scope" value="part"> Delete only some of the data</label>
+  </fieldset>
+
+  <label class="dform-label" for="df-details">Details (optional)</label>
+  <textarea class="dform-input" id="df-details" name="details" rows="3" maxlength="1000" placeholder="For example, which data to delete"></textarea>
+
+  <div class="dform-hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+  <label class="dform-opt dform-owner"><input type="checkbox" name="owner" id="df-owner" required> I am the owner of this account</label>
+
+  <button class="btn dform-send" type="submit">Send request</button>
+  <p class="dform-msg" id="df-msg" role="alert" hidden></p>
+</form>
+
+<div class="card dform-done" id="del-done" role="status" tabindex="-1" hidden>
+  <h2>Request sent</h2>
+  <p>Request number: <strong id="df-id"></strong>.</p>
+  <p>We will reply within <strong>30 days</strong>. To make sure the account is yours, we will write to the account email or ask you to confirm through Telegram. A confirmation of the request will arrive at your reply email.</p>
+</div>
+
+<noscript><p>The form needs JavaScript. Without it, email us at the address below.</p></noscript>
+
+<p>Or write to <a href="mailto:support@zarok.app">support@zarok.app</a> with the account email or the Telegram username you signed in with. If the account has an email address, write from that address.</p>
+
+<p>We reply and delete the data within <strong>30 days</strong>. You don't need to give your password: never write it in emails.</p>
+
+<h2>If you do nothing</h2>
+<p>A user record with no activity at all <strong>for a year</strong> is deleted automatically together with all
+its data, unless it has a paid period.</p>
+
+<h2>What stays with you</h2>
+<p>An export file, if you saved one, stays on your device. Entries that the app added to the phone calendar
+stay there until you delete them.</p>
+
+<footer>
+  <a href="/zarok-preview/help">Help</a>
+  <a href="/zarok-preview/faq">FAQ</a>
+  <a href="/zarok-preview/privacy">Privacy</a>
+  <a href="/zarok-preview/terms">Terms of Use</a>
+  <a href="/zarok-preview/delete-account">Account deletion</a>
+  <a href="/zarok-preview/countries">Countries</a>
+  <a href="/zarok-preview/help/support">Support</a>
+</footer>
+
+</div>
+<script src="/delete-request.js?v=d9efc143af" defer></script>
+</body>
+</html>

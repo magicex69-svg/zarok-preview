@@ -1,0 +1,111 @@
+/* Общий вид публичных страниц: политика, условия, удаление аккаунта. */
+:root{
+  --bg:#fbfaf8; --surface:#fff; --line:#e8e5de; --line-soft:#f3f0ea;
+  --t1:#1a1815; --t2:#4a463f; --t3:#8a867e; --accent:#4a6070;
+  --ui:'Manrope',-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--t1);font-family:var(--ui);
+  font-size:15px;line-height:1.65;-webkit-text-size-adjust:100%
+}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 80px}
+
+header{padding:32px 0 26px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.brand-mark{
+  width:42px;height:42px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg,#5d7a92 0%,#3f5668 100%);color:#fff
+}
+.brand-mark svg{width:22px;height:22px}
+.brand b{display:block;font-size:16px;font-weight:800;letter-spacing:-.02em}
+.brand span{display:block;font-size:12px;color:var(--t3)}
+
+h1{margin:30px 0 6px;font-size:27px;font-weight:800;letter-spacing:-.03em;line-height:1.2}
+.upd{margin:0 0 26px;font-size:12.5px;color:var(--t3)}
+h2{margin:32px 0 10px;font-size:18px;font-weight:700;letter-spacing:-.02em}
+h3{margin:24px 0 8px;font-size:15.5px;font-weight:700;letter-spacing:-.01em;color:var(--t1)}
+p{margin:0 0 14px;color:var(--t2)}
+ul{margin:0 0 16px;padding-left:20px;color:var(--t2)}
+li{margin-bottom:7px}
+a{color:var(--accent)}
+strong{color:var(--t1);font-weight:700}
+
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;
+  padding:18px 20px;margin:20px 0
+}
+.card.warn{background:#fdf6e8;border-color:#f0e2c4}
+.card h2{margin-top:0}
+.card p:last-child{margin-bottom:0}
+
+.steps{counter-reset:s;list-style:none;padding:0;margin:0 0 16px}
+.steps li{
+  counter-increment:s;position:relative;padding-left:38px;margin-bottom:14px;color:var(--t2)
+}
+.steps li::before{
+  content:counter(s);position:absolute;left:0;top:-1px;width:26px;height:26px;
+  border-radius:50%;background:var(--accent);color:#fff;
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center
+}
+
+.btn{
+  display:inline-block;padding:13px 22px;border-radius:13px;background:var(--t1);color:#fff;
+  text-decoration:none;font-weight:700;font-size:14.5px
+}
+.btn.ghost{background:none;color:var(--t1);border:1px solid #ddd9d0}
+
+footer{
+  margin-top:50px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:13px;color:var(--t3)
+}
+footer a{margin-right:16px;display:inline-block;margin-bottom:6px}
+
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#171614; --surface:#1f1e1b; --line:#2e2c28; --line-soft:#26241f;
+    --t1:#f2f0ec; --t2:#c2beb6; --t3:#8f8a81; --accent:#8fb0c8;
+  }
+  .card.warn{background:#2a241a;border-color:#453a24}
+  .btn{background:#f2f0ec;color:#171614}
+  .btn.ghost{color:#f2f0ec;border-color:#3a3833}
+}
+
+/* тонкий скролл, как на сайте: те же параметры, что в site.css (--scroll-size, --scroll-thumb, --scroll-track) */
+:root{--scroll-size:3px;--scroll-thumb:#a7af98;--scroll-track:transparent}
+@supports not selector(::-webkit-scrollbar){html,*,.thin-scroll{scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) var(--scroll-track)}}
+@supports selector(::-webkit-scrollbar){
+::-webkit-scrollbar{width:var(--scroll-size);height:var(--scroll-size);background:var(--scroll-track)}
+::-webkit-scrollbar-track{background:var(--scroll-track)}
+::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:999px;border:0}
+::-webkit-scrollbar-corner{background:transparent}
+.thin-scroll::-webkit-scrollbar{width:var(--scroll-size);height:var(--scroll-size);background:var(--scroll-track)}
+.thin-scroll::-webkit-scrollbar-track{background:var(--scroll-track)}
+.thin-scroll::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:999px;border:0}
+.thin-scroll::-webkit-scrollbar-corner{background:transparent}
+}
+
+/* значок приложения в шапке юридических страниц (как на главной) */
+.brand img{width:36px;height:36px;flex:none;display:block}
+
+/* форма запроса на удаление (delete-account.html, public/delete-request.js) */
+.dform{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:18px 0 20px}
+.dform-label{display:block;margin:14px 0 6px;font-size:14px;font-weight:700;color:var(--t1)}
+.dform>.dform-label:first-child{margin-top:0}
+.dform-input{display:block;width:100%;padding:12px 14px;border:1px solid #d9d5cc;border-radius:12px;background:var(--bg);color:var(--t1);font:inherit;font-size:16px;line-height:1.4}
+textarea.dform-input{resize:vertical;min-height:84px}
+.dform-input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.dform-hint{margin:6px 0 0;font-size:13px;color:var(--t3)}
+.dform-set{border:0;margin:0;padding:0;min-width:0}
+.dform-set legend{padding:0}
+.dform-opt{display:flex;align-items:flex-start;gap:10px;margin:8px 0;color:var(--t2);cursor:pointer}
+.dform-opt input{flex:none;width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
+.dform-owner{margin:16px 0 4px;color:var(--t1);font-weight:600}
+.dform-send{margin-top:14px;border:0;cursor:pointer;font-family:inherit}
+.dform-send:disabled{opacity:.6;cursor:default}
+.dform-msg{margin:12px 0 0;color:#a2412f;font-weight:600}
+.dform-hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.dform-done{outline:none}
+@media (max-width:520px){.wrap{padding-left:16px;padding-right:16px}.dform{padding:16px}.dform-send{width:100%}}
+@media (prefers-color-scheme:dark){.dform-input{border-color:#3a3833}.dform-msg{color:#f0a08f}}

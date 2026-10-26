@@ -1,0 +1,56 @@
+@import url('/zarok-preview/fonts.css?v=f267a782f3');
+/* Юридические страницы сайта (/zarok-preview/privacy, /zarok-preview/terms, /zarok-preview/delete-account): палитра сайта поверх общего page.css.
+   page.css умеет тёмную тему браузера через переменные; раньше этот файл поверх него жёстко задавал светлые цвета, но не все —
+   в тёмной теме часть слов (жирный текст, подзаголовки) оставалась белой на светлом фоне, а блок предупреждения — тёмным
+   на светлой странице. Теперь здесь переопределяются сами переменные, для обеих тем, и все цвета берутся из них:
+   светлая тема — «Фарфор» сайта, тёмная — «Обсидиан». Контраст текста к фону не ниже 4,5 : 1. */
+:root{
+  --bg:#f6f4ee; --surface:#fffdf8; --line:#d9ddce; --line-soft:#eaecdf;
+  --t1:#272d25; --t2:#5b6554; --t3:#656c59; --accent:#596940;
+  --head:#2f3929; --warn-bg:#f7efda; --warn-line:#e3d4a8; --on-accent:#fffdf8;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#151914; --surface:#1d231b; --line:#353d2f; --line-soft:#242b21;
+    --t1:#eef0e6; --t2:#c5cbb8; --t3:#a0a892; --accent:#b9cc9a;
+    --head:#e4e9d7; --warn-bg:#2c2818; --warn-line:#4d4528; --on-accent:#151914;
+  }
+}
+body{background:var(--bg);color:var(--t1);font-family:Manrope,-apple-system,'Segoe UI',sans-serif;font-size:14px;line-height:1.8}
+.wrap{max-width:900px;width:calc(100% - 42px);margin:0 auto;padding:35px 0 55px}
+header{padding:0 0 28px;border-bottom:1px solid var(--line);margin-bottom:38px}
+h1{font:600 clamp(32px,4.2vw,48px)/1.15 Manrope;letter-spacing:-.05em;margin:0 0 22px;color:var(--t1)}
+h2{font-size:25px;letter-spacing:-.035em;margin-top:37px;color:var(--head)}
+h3{font-size:19px;letter-spacing:-.02em;color:var(--head)}
+p,li,ul,ol{color:var(--t2)}
+strong,b{color:var(--t1)}
+a{color:var(--accent);text-underline-offset:3px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px}
+/* предупреждение — тёплая плашка в тон странице, а не отдельный тёмный блок */
+.card.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.card.warn p,.card.warn li{color:var(--t1)}
+.card h2,.card h3{color:var(--head)}
+.upd{font-size:11px;color:var(--t3)}
+/* пометка о переводе под датой (владелец, 22.10.2026): тихий мелкий текст, не плашка */
+.tr-note{margin:-14px 0 26px;font-size:12.5px;line-height:1.5;color:var(--t3)}
+.tr-note a{color:inherit}
+.brand{color:var(--t1)}
+.brand span span{color:var(--t3)}
+.brand-mark{background:var(--line-soft);border:1px solid var(--line);color:var(--accent);border-radius:13px}
+.steps li{color:var(--t2)}
+.steps li::before{background:var(--accent);color:var(--on-accent)}
+footer{border-top:1px solid var(--line);padding-top:22px;margin-top:38px;color:var(--t3)}
+footer a{color:var(--accent)}
+.btn{background:var(--accent);border:1px solid var(--accent);color:var(--on-accent);border-radius:999px;padding:12px 20px;text-decoration:none;display:inline-block}
+.btn.ghost{background:none;color:var(--t1);border-color:var(--line)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+@media(max-width:500px){.wrap{width:calc(100% - 34px);padding-top:24px}h1{font-size:32px}h2{font-size:23px}.card{padding:22px}body{font-size:13px}}
+h1,h2,h3,p,li,a{overflow-wrap:anywhere;hyphens:auto}.brand>span:last-child{min-width:0}
+/* переключатель языка на страницах Политики и Условий */
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lang-switch{margin-left:auto;font-weight:600;font-size:14px;color:var(--accent);text-decoration:none;white-space:nowrap}
+.lang-switch:hover{text-decoration:underline}.note{color:var(--t3)}
+/* нажимаемая область не меньше 40×40 на телефоне (проверка 18 октября 2026): ссылки подвала и переключатель языка */
+footer a{display:inline-flex;align-items:center;min-height:40px;min-width:40px;margin-bottom:0;vertical-align:middle}
+.lang-switch{display:inline-flex;align-items:center;justify-content:center;min-height:40px;min-width:40px}
