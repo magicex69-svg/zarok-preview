@@ -822,7 +822,7 @@ body:has(.hero-page) .site-header .brand img{width:calc(30px + 6px * var(--k));h
 .fx-top.wrap{width:min(1320px,calc(100% - 40px))}
 /* «Курсы и привычки» и «Зарок в Telegram» (26 октября 2026): первый экран с телефоном, стеклянные плашки, наглядные карточки */
 .crs-hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:60px;align-items:center;padding-top:56px;padding-bottom:40px}
-.crs-hero h1{font-size:clamp(44px,6vw,82px);line-height:.98;letter-spacing:-.06em;margin:18px 0 22px}
+.crs-hero h1{font-size:clamp(38px,4.4vw,62px);line-height:.98;letter-spacing:-.06em;margin:18px 0 22px}
 .crs-hero h1 em{font-weight:400;color:var(--accent)}
 .crs-hero-copy>p{max-width:520px;font-size:15px;line-height:1.75;color:var(--muted);margin:0}
 .crs-phone{--w:300px}
@@ -876,3 +876,5 @@ body:has(.hero-page) .site-header .brand img{width:calc(30px + 6px * var(--k));h
 @media(max-width:850px){.crs-hero{grid-template-columns:1fr;gap:36px}.crs-phone{justify-self:center;--w:270px}.crs-two,.crs-ai,.tg-start{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:650px){.crs-hero{padding-top:36px}.crs-mode{display:flex}.crs-mode .crs-visual{margin-bottom:18px}.crs-steps{grid-template-columns:minmax(0,1fr)}.crs-bar b{font-size:9px;padding:0}.crs-bar span{padding:0 5px}.crs-section{padding-top:50px}}
 .crs-section+.mcp-section{padding-top:70px}
+.fx-screen>img{display:block;width:100%;height:100%;object-fit:cover}
+@media(min-width:851px){.crs-hero h1{white-space:nowrap}}
