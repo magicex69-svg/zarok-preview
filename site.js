@@ -224,3 +224,11 @@ document.querySelectorAll('.open-menu').forEach(m=>{
   document.addEventListener('click',e=>{if(m.open&&!m.contains(e.target))m.open=false;});
   m.addEventListener('keydown',e=>{if(e.key==='Escape'&&m.open){m.open=false;m.querySelector('summary').focus();}});
 });
+
+/* «Возможности»: проигрыватель — вкладка меняет описание и экран в телефоне; стрелками ↑↓←→ по вкладкам */
+document.querySelectorAll('[data-fx]').forEach(fx=>{
+  const tabs=[...fx.querySelectorAll('[data-fx-tab]')],panes=[...fx.querySelectorAll('.fx-pane')],shots=[...fx.querySelectorAll('[data-fx-shot]')];
+  const show=i=>{tabs.forEach((t,k)=>{t.setAttribute('aria-selected',String(k===i));t.tabIndex=k===i?0:-1;});panes.forEach((p,k)=>p.hidden=k!==i);shots.forEach((s,k)=>s.classList.toggle('on',k===i));};
+  tabs.forEach((t,i)=>{t.addEventListener('click',()=>show(i));
+    t.addEventListener('keydown',e=>{const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const n=(i+d+tabs.length)%tabs.length;show(n);tabs[n].focus();});});
+});
