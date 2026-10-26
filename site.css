@@ -510,9 +510,6 @@ html:not([data-site-theme=porcelain]) .guide-directory-group a[data-client][aria
 @media(max-width:650px){summary{min-height:40px;align-items:center}.faq-list summary{align-items:center}.text-link{display:inline-flex;align-items:center;min-height:40px}.text-link{min-width:40px}}
 
 /* строка-подсказка о другой языковой версии сайта (site.js): только при первом посещении, без выбора языка */
-.lang-suggest{display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 16px;background:var(--soft);color:var(--ink);font-size:15px;text-align:center}
-.lang-suggest a{color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px}
-.lang-suggest button{border:0;background:none;color:inherit;font-size:20px;line-height:1;min-width:40px;min-height:40px;cursor:pointer}
 /* веб-панель для компьютера (zarok.app/panel, 19.10.2026): ссылка в шапке — только на широком окне, в первом экране — всегда */
 .header-desk{padding:11px 15px;border-radius:999px;font-size:10px;font-weight:700;text-decoration:none;white-space:nowrap;color:var(--ink);display:flex;align-items:center}
 .header-desk:hover{background:var(--soft)}

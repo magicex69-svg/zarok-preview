@@ -245,21 +245,6 @@ document.addEventListener('click',function(e){
   const a=e.target.closest&&e.target.closest('a.lang-switch[hreflang]');if(!a)return;
   document.cookie='zarok_lang='+a.getAttribute('hreflang')+'; Path=/; Max-Age=31536000; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');
 });
-(function(){
-  try{if(/(?:^|;\s*)zarok_lang=/.test(document.cookie))return;}catch{return;}
-  const sw=document.querySelector('.site-header a.lang-switch[data-suggest]');if(!sw)return;
-  
-  const tag=String((navigator.languages&&navigator.languages[0])||navigator.language||'').toLowerCase().split('_').join('-').split('-');
-  const l=tag[0],r=tag.slice(1).find(x=>/^[a-z]{2}$/.test(x))||'';
-  const ours=['en','uk','es','pt','id','in','de','fr'],toOurs={ua:1,id:1,br:1,pt:1,de:1,at:1,ch:1,fr:1,be:1,es:1,mx:1,ar:1,co:1,cl:1,pe:1,ve:1,ec:1,gt:1,cu:1,bo:1,do:1,hn:1,py:1,sv:1,ni:1,cr:1,pa:1,uy:1,pr:1};
-  const cis=['be','kk','ky','uz','tg','tk','hy','az','ka','mo'],cisR=['ru','by','kz','kg','uz','tj','tm','am','az','ge','md'];
-  const want=!l?'':l==='ru'?'ru':ours.includes(l)||toOurs[r]?'en':cis.includes(l)||cisR.includes(r)?'ru':'en';
-  if(!want||want!==sw.getAttribute('hreflang'))return;
-  const bar=document.createElement('div');bar.className='lang-suggest';bar.setAttribute('role','note');
-  const go=document.createElement('a');go.href=sw.getAttribute('href');go.setAttribute('hreflang',want);go.lang=want;go.className='lang-switch';go.textContent=sw.dataset.suggest+' →';
-  const x=document.createElement('button');x.type='button';x.textContent='×';x.setAttribute('aria-label','OK');x.addEventListener('click',()=>bar.remove());
-  bar.append(go,x);document.body.prepend(bar);
-})();
 
 
 (function themeFlow(){

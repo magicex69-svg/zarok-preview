@@ -247,27 +247,12 @@ document.addEventListener('click',async function(e){
 
 /* Язык сайта (с 18 октября 2026: английский в корне, русский под /ru/). Выбор в переключателе запоминается в cookie zarok_lang
    на год: с ней сервер открывает старые адреса сразу на выбранном языке, а страница подключения ИИ-клиента и письма без аккаунта
-   говорят на нём же. Это не слежка, а настройка, которую человек выбрал сам. Первое посещение без выбора: если язык браузера
-   ближе к другой версии страницы, сверху появляется строка-ссылка на неё; сама страница никуда не переходит. */
+   говорят на нём же. Это не слежка, а настройка, которую человек выбрал сам. Строки «Этот сайт есть и на …» сверху нет (решение владельца, 26 октября 2026):
+   кто открыл английскую версию, видит только английскую, и наоборот; сменить язык можно переключателем в шапке. */
 document.addEventListener('click',function(e){
   const a=e.target.closest&&e.target.closest('a.lang-switch[hreflang]');if(!a)return;
   document.cookie='zarok_lang='+a.getAttribute('hreflang')+'; Path=/; Max-Age=31536000; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');
 });
-(function(){
-  try{if(/(?:^|;\s*)zarok_lang=/.test(document.cookie))return;}catch{return;}
-  const sw=document.querySelector('.site-header a.lang-switch[data-suggest]');if(!sw)return;
-  /* правило приложения (js/i18n.js) для двух языков сайта: русский — русский браузер и СНГ без своего языка на сайте; остальным — английский */
-  const tag=String((navigator.languages&&navigator.languages[0])||navigator.language||'').toLowerCase().split('_').join('-').split('-');
-  const l=tag[0],r=tag.slice(1).find(x=>/^[a-z]{2}$/.test(x))||'';
-  const ours=['en','uk','es','pt','id','in','de','fr'],toOurs={ua:1,id:1,br:1,pt:1,de:1,at:1,ch:1,fr:1,be:1,es:1,mx:1,ar:1,co:1,cl:1,pe:1,ve:1,ec:1,gt:1,cu:1,bo:1,do:1,hn:1,py:1,sv:1,ni:1,cr:1,pa:1,uy:1,pr:1};
-  const cis=['be','kk','ky','uz','tg','tk','hy','az','ka','mo'],cisR=['ru','by','kz','kg','uz','tj','tm','am','az','ge','md'];
-  const want=!l?'':l==='ru'?'ru':ours.includes(l)||toOurs[r]?'en':cis.includes(l)||cisR.includes(r)?'ru':'en';
-  if(!want||want!==sw.getAttribute('hreflang'))return;
-  const bar=document.createElement('div');bar.className='lang-suggest';bar.setAttribute('role','note');
-  const go=document.createElement('a');go.href=sw.getAttribute('href');go.setAttribute('hreflang',want);go.lang=want;go.className='lang-switch';go.textContent=sw.dataset.suggest+' →';
-  const x=document.createElement('button');x.type='button';x.textContent='×';x.setAttribute('aria-label','OK');x.addEventListener('click',()=>bar.remove());
-  bar.append(go,x);document.body.prepend(bar);
-})();
 
 /* Витрина тем на странице «Зароки» (19 октября 2026): карточки в перспективе, средняя — крупно и впереди, соседние повёрнуты и приглушены.
    Стрелки в плашке, перетаскивание мышью и пальцем, клавиши ← →, нажатие на соседнюю карточку. Положение — дробное число (pos),
