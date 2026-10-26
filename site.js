@@ -141,12 +141,13 @@ document.querySelector('[data-share-character]')?.addEventListener('click',async
   }catch(e){if(e.name!=='AbortError')toast('Не удалось поделиться. Ссылка на персонажа есть в адресной строке.');}
 });
 
+/* Картинки с телефоном (первый экран, «Один день»): кадр 2688 px по ширине, экран-вёрстка стоит по углам (matrix3d) и масштабируется с кадром */
+document.querySelectorAll('[data-phone-art]').forEach(art=>{const ui=art.querySelector('.hero-ui'),fit=()=>ui.style.setProperty('--s',art.clientWidth/2688);
+  fit();if('ResizeObserver' in window)new ResizeObserver(fit).observe(art);else addEventListener('resize',fit);});
 /* первый экран главной: экран «Сегодня» в вырезе картинки — масштаб по ширине выреза, дата, третье дело отмечается само и растёт прогресс
    (при «меньше движения» стоит); шапка появляется, когда первый экран прокручен */
 const hero=document.querySelector('[data-hero-demo]');
 if(hero){
-  const art=hero.querySelector('.hero-art'),ui=hero.querySelector('[data-hero-ui]'),fit=()=>ui.style.setProperty('--s',art.clientWidth/2688);
-  fit();if('ResizeObserver' in window)new ResizeObserver(fit).observe(art);else addEventListener('resize',fit);
   const date=hero.querySelector('[data-hero-date]');try{date.textContent=new Date().toLocaleDateString(document.documentElement.lang||'ru',{day:'numeric',month:'long'});}catch(e){}
   const task=hero.querySelector('[data-hero-task]'),count=hero.querySelector('[data-hero-count]'),bar=hero.querySelector('[data-hero-bar]');let timer=0,on=false;
   const set=v=>{on=v;task.classList.toggle('done',v);count.textContent=v?'3':'2';bar.style.width=v?'75%':'50%';};
@@ -156,17 +157,17 @@ if(hero){
   const scrolled=()=>document.documentElement.classList.toggle('is-scrolled',scrollY>hero.offsetHeight*.6);
   scrolled();addEventListener('scroll',scrolled,{passive:true});
 }
-/* «Один день с Зароком» на главной: утро, задачи, привычки, вечер. Шаги идут сами, пока блок на экране и никто не нажимал; при «меньше движения» — только по нажатию */
+/* «Один день с Зароком» на главной: утро, задачи, привычки, вечер — у каждого своя сцена во весь блок. Шаги идут сами, пока блок на экране и никто не нажимал; при «меньше движения» — только по нажатию */
 const day=document.querySelector('[data-day]');
 if(day){
-  const tabs=[...day.querySelectorAll('[data-day-step]')],skies=[...day.querySelectorAll('.day-sky')],screens=[...day.querySelectorAll('.day-screen')];
-  const caps=[...day.querySelectorAll('.day-captions>span')].map(n=>n.textContent),cap=day.querySelector('.day-caption'),zork=day.querySelector('.day-zarok'),poses=zork.dataset.dayPoses.split(' ');
+  const tabs=[...day.querySelectorAll('[data-day-step]')],arts=[...day.querySelectorAll('.day-art')];
+  const caps=[...day.querySelectorAll('.day-captions>span')].map(n=>n.textContent),cap=day.querySelector('.day-caption');
   let step=0,timer=0,held=false,seen=false;
-  const show=i=>{step=i;tabs.forEach((t,k)=>{t.setAttribute('aria-selected',String(k===i));t.tabIndex=k===i?0:-1;});skies.forEach((n,k)=>n.classList.toggle('on',k===i));screens.forEach((n,k)=>n.hidden=k!==i);cap.textContent=caps[i];cap.setAttribute('aria-labelledby',tabs[i].id);zork.src=poses[i];};
+  const show=i=>{step=i;tabs.forEach((t,k)=>{t.setAttribute('aria-selected',String(k===i));t.tabIndex=k===i?0:-1;});arts.forEach((n,k)=>n.classList.toggle('on',k===i));cap.textContent=caps[i];cap.setAttribute('aria-labelledby',tabs[i].id);};
   const plan=()=>{clearTimeout(timer);if(!held&&seen&&!isReduced())timer=setTimeout(()=>{show((step+1)%tabs.length);plan();},4200);};
   tabs.forEach((t,i)=>{t.addEventListener('click',()=>{held=true;clearTimeout(timer);show(i);});
     t.addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft','ArrowDown','ArrowUp'].includes(e.key))return;e.preventDefault();const n=(i+(e.key==='ArrowRight'||e.key==='ArrowDown'?1:-1)+tabs.length)%tabs.length;held=true;clearTimeout(timer);show(n);tabs[n].focus();});});
-  if('IntersectionObserver' in window)new IntersectionObserver(es=>{seen=es[0].isIntersecting;if(seen)poses.forEach(src=>load(src).catch(()=>{}));plan();},{threshold:.35}).observe(day);
+  if('IntersectionObserver' in window)new IntersectionObserver(es=>{seen=es[0].isIntersecting;plan();},{threshold:.35}).observe(day);
   motionHooks.push(plan);
 }
 const tasks=[true,true,false,false];

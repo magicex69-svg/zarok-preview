@@ -611,20 +611,20 @@ html:not([data-site-theme=porcelain]) .guide-directory-group a[data-client][aria
 @media(max-width:650px){.hero-install{width:100%;justify-content:center;margin-top:26px}.hero-phone{--s:.82}}
 @media(max-width:370px){.hero-phone{--s:.74}}
 /* главная по плану (26.10.2026): один день с Зароком, возможности, семь Зароков, Зарок в вашей жизни, бесплатно и Plus, первый день; разметка — tools/build-site.cjs */
-.day-section h2,.ft-section h2,.home-characters h2,.life-section h2,.fp-section h2,.final-section h2{font-size:clamp(34px,4.6vw,62px);text-wrap:balance}
+.day-card h2,.ft-section h2,.home-characters h2,.life-section h2,.fp-section h2,.final-section h2{font-size:clamp(34px,4.6vw,62px);text-wrap:balance}
 .ft-section h2,.home-characters h2,.life-section h2,.fp-section h2{margin-bottom:32px}
-.day-section{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:48px;align-items:center;padding-top:110px;padding-bottom:110px}
+
 .day-tabs{display:grid;gap:8px;margin-top:32px}
 .day-tabs button{display:flex;align-items:baseline;gap:16px;padding:15px 20px;border:1px solid var(--line);border-radius:18px;background:transparent;color:var(--muted);font:600 20px/1.2 var(--ui);letter-spacing:-.02em;text-align:left;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
 .day-tabs time{min-width:46px;font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:0}
 .day-tabs button[aria-selected=true]{background:var(--surface);color:var(--ink);border-color:var(--accent);box-shadow:0 10px 28px var(--shadow)}
 .day-tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .day-caption{margin-top:22px;min-height:3.2em;font-size:16px;line-height:1.6;color:var(--muted)}
-.day-scene{position:relative;height:620px;border-radius:36px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--soft)}
-.day-sky{position:absolute;inset:0;background-size:cover;background-position:center bottom;opacity:0;transition:opacity .8s}.day-sky.on{opacity:1}
-.hero-phone.day-phone{--s:.92;transform:translateX(70px) rotate(-3deg) scale(var(--s))}
+
+
+
 .day-screen{display:flex;flex-direction:column;flex:1}.day-phone .hp-head b{font-size:30px}.day-phone .hp-head span{font-size:12px}.day-phone .hp-rows{gap:10px;margin-top:20px}.day-phone .hp-row{padding:14px}.day-phone .hp-text b{font-size:14px}.day-phone .hp-text small{font-size:11px}.day-phone .hp-check{width:22px;height:22px}
-.day-zarok{position:absolute;z-index:2;left:5%;bottom:1%;width:250px;height:250px;object-fit:contain;filter:drop-shadow(0 18px 18px #0003)}
+
 .hp-rows{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
 .hp-row{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
 .hp-row.done .hp-text b{text-decoration:line-through;color:var(--muted)}
@@ -670,10 +670,10 @@ html:not([data-site-theme=porcelain]) .guide-directory-group a[data-client][aria
 .final-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.final-actions .button{min-height:58px;font-size:15px}.final-actions .hero-install{margin-top:0}
 .final-qr-box{position:relative;z-index:1;display:grid;justify-items:center;gap:10px;padding:16px 16px 12px;border-radius:24px;background:#fff;color:#20261c;font-size:12px;font-weight:600}.final-qr{width:168px;height:168px}
 .final-zarok{position:absolute;right:16px;bottom:-6px;width:240px;height:240px;object-fit:contain}
-@media(max-width:1050px){.day-section{gap:28px}.day-scene{height:560px}.hero-phone.day-phone{--s:.82}.day-zarok{width:200px;height:200px}.life-grid{grid-template-columns:repeat(5,minmax(210px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.life-card{scroll-snap-align:start}.final-section{padding-right:200px}.final-zarok{width:180px;height:180px}}
-@media(max-width:850px){.day-section{grid-template-columns:1fr;padding-top:80px;padding-bottom:80px}.day-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}.day-tabs button{flex-direction:column;gap:2px;font-size:16px;padding:12px 14px}.ft-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.final-section{grid-template-columns:1fr;padding:40px 40px 200px}.final-qr-box{justify-self:start}}
-@media(max-width:650px){.day-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.day-scene{height:500px;border-radius:28px}.hero-phone.day-phone{--s:.74;transform:translateX(44px) rotate(-3deg) scale(var(--s))}.day-zarok{width:160px;height:160px;left:0}.ft-section{padding-bottom:80px}.ft-grid{grid-template-columns:1fr}.ft-wide{grid-column:auto}.ft-ui{min-height:0}.character-stage.home-stage{min-height:470px}.home-stage .character-portrait{height:320px;margin-bottom:70px}.home-character-name b{font-size:21px}.home-stage .emotion-picker button{font-size:10px;padding:8px 10px}.life-section,.fp-section{padding-top:80px}.fp-grid{grid-template-columns:1fr}.final-section{padding:32px 22px 190px;margin-bottom:80px}.final-qr-box{display:none}.final-actions .button{width:100%;justify-content:center}.final-zarok{width:170px;height:170px;right:50%;margin-right:-85px}}
-@media(max-width:370px){.hero-phone.day-phone{--s:.68;transform:translateX(40px) rotate(-3deg) scale(var(--s))}.day-zarok{width:140px;height:140px}}
+@media(max-width:1050px){.life-grid{grid-template-columns:repeat(5,minmax(210px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.life-card{scroll-snap-align:start}.final-section{padding-right:200px}.final-zarok{width:180px;height:180px}}
+@media(max-width:850px){.day-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}.day-tabs button{flex-direction:column;gap:2px;font-size:16px;padding:12px 14px}.ft-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.final-section{grid-template-columns:1fr;padding:40px 40px 200px}.final-qr-box{justify-self:start}}
+@media(max-width:650px){.day-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.ft-section{padding-bottom:80px}.ft-grid{grid-template-columns:1fr}.ft-wide{grid-column:auto}.ft-ui{min-height:0}.character-stage.home-stage{min-height:470px}.home-stage .character-portrait{height:320px;margin-bottom:70px}.home-character-name b{font-size:21px}.home-stage .emotion-picker button{font-size:10px;padding:8px 10px}.life-section,.fp-section{padding-top:80px}.fp-grid{grid-template-columns:1fr}.final-section{padding:32px 22px 190px;margin-bottom:80px}.final-qr-box{display:none}.final-actions .button{width:100%;justify-content:center}.final-zarok{width:170px;height:170px;right:50%;margin-right:-85px}}
+
 /* «Чем Зарок отличается» на главной */
 .df-section{padding-top:30px;padding-bottom:110px}.df-section h2{font-size:clamp(34px,4.6vw,62px);text-wrap:balance;max-width:16ch;margin-bottom:32px}
 .df-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
@@ -701,3 +701,13 @@ html.is-scrolled body:has(.hero-page) .site-header,body:has(.hero-page) .site-he
 .hero-page .hero-mark{position:relative;display:inline-block;margin:0;font:800 clamp(80px,11.6vw,214px)/.9 Unbounded,var(--ui);letter-spacing:-.07em;color:#596940;padding-right:.18em}
 .hero-page .hero-tag{margin-top:.6em;font:700 clamp(18px,2.05vw,38px)/1.2 var(--ui);letter-spacing:-.03em;color:#272d25;white-space:nowrap}
 @media(max-width:850px){/* на телефоне — крупнее: верх экрана уходит за кадр, телефон и Топа сразу под знаком, верхний край картинки растворяется в фоне */.hero-stage{position:relative;overflow:hidden;aspect-ratio:1/1;margin-top:-4vw;-webkit-mask-image:linear-gradient(transparent,#000 22%);mask-image:linear-gradient(transparent,#000 22%)}.hero-art{position:absolute;width:250%;left:-145%;bottom:-9.3%}.hero-copy{position:relative;top:auto;transform:none;padding-top:34px}.hero-page{display:flex;flex-direction:column-reverse}.hero-page .hero-mark{font-size:24vw}.hero-page .hero-tag{white-space:normal;font-size:clamp(20px,5.6vw,30px)}}
+
+/* «Один день с Зароком»: сцена во весь блок, телефон с экраном шага справа, заголовок и вкладки — на карточке слева */
+.day-page{position:relative;overflow:hidden}
+.day-stage{position:relative;overflow:hidden;aspect-ratio:2688/1520;max-height:92vh;min-height:560px}
+.day-art{position:absolute;left:50%;top:50%;width:max(100%,990px);aspect-ratio:2688/1520;transform:translate(-50%,-50%);opacity:0;transition:opacity .8s ease}
+.day-art.on{opacity:1}
+.day-art .hero-pic{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.day-copy{position:absolute;z-index:3;left:0;right:0;top:50%;transform:translateY(-50%);pointer-events:none}
+.day-card{pointer-events:auto;width:min(440px,100%);padding:34px 32px 26px;border-radius:30px;background:color-mix(in srgb,var(--surface) 84%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 24px 60px #2a2f2214}
+@media(max-width:850px){.day-page{display:flex;flex-direction:column}.day-copy{position:relative;top:auto;transform:none;order:-1;padding-top:70px}.day-card{width:100%;padding:0;background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}.day-stage{aspect-ratio:1/1.02;min-height:0;max-height:none;margin-top:18px}.day-art{width:200%;left:-86%;top:auto;bottom:-2%;transform:none}}
