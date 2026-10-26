@@ -232,3 +232,20 @@ document.querySelectorAll('[data-fx]').forEach(fx=>{
   tabs.forEach((t,i)=>{t.addEventListener('click',()=>show(i));
     t.addEventListener('keydown',e=>{const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const n=(i+d+tabs.length)%tabs.length;show(n);tabs[n].focus();});});
 });
+/* «Сначала ваши слова»: разговор проигрывается, пока блок на экране — фраза набирается в поле, уходит, приходят ответ и план,
+   галочки отмечаются, «Применить», «Готово»; пауза и заново. При «меньше движения» виден итог (без класса run) */
+document.querySelectorAll('[data-ai-chat]').forEach(chat=>{
+  const steps=[...chat.querySelectorAll('[data-ai-step]')].sort((a,b)=>a.dataset.aiStep-b.dataset.aiStep),field=chat.querySelector('[data-ai-typing]'),text=steps[0].textContent;
+  let timers=[],shown=false,running=false;
+  const at=(ms,f)=>timers.push(setTimeout(f,ms));
+  const stop=()=>{timers.forEach(clearTimeout);timers=[];running=false;chat.classList.remove('run');steps.forEach(s=>s.classList.remove('in'));field.textContent='';};
+  const play=()=>{
+    stop();if(!shown||isReduced())return;running=true;chat.classList.add('run');
+    let t=500;[...text].forEach((ch,i)=>at(t+=45,()=>{field.textContent=text.slice(0,i+1);}));
+    at(t+=500,()=>{field.textContent='';steps[0].classList.add('in');});
+    [900,900,700,600,900,900].forEach((d,k)=>at(t+=d,()=>steps[k+1].classList.add('in')));
+    at(t+=4200,play);
+  };
+  if('IntersectionObserver' in window)new IntersectionObserver(es=>{shown=es[0].isIntersecting;if(shown&&!running)play();else if(!shown)stop();},{threshold:.35}).observe(chat);
+  motionHooks.push(()=>{if(isReduced())stop();else if(shown&&!running)play();});
+});
