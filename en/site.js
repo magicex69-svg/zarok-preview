@@ -165,6 +165,13 @@ if(day){
   motionHooks.push(plan);
 }
 
+const sevenStage=document.querySelector('[data-seven]');
+if(sevenStage){
+  const tags=[...sevenStage.querySelectorAll('.seven-tag')];
+  tags.forEach(t=>t.addEventListener('click',e=>{e.stopPropagation();const was=t.classList.contains('open');tags.forEach(x=>x.classList.remove('open'));t.classList.toggle('open',!was);}));
+  document.addEventListener('click',()=>tags.forEach(x=>x.classList.remove('open')));
+}
+
 const seven=document.querySelector('[data-seven-video]');
 if(seven){
   let near=false;

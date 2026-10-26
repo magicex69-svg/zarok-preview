@@ -710,11 +710,19 @@ html.is-scrolled body:has(.hero-page) .site-header,body:has(.hero-page) .site-he
 .seven-stage{position:relative;margin-top:30px;aspect-ratio:1920/1086;border-radius:32px;overflow:hidden;background:#cfe0c4}
 .seven-still,.seven-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .seven-video{opacity:0;transition:opacity .6s}.seven-video.on{opacity:1}
-.seven-names{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin:18px 0 0;padding:0;list-style:none}
-.seven-names li{display:grid;gap:2px;padding:12px 12px 14px;border-radius:18px;background:color-mix(in srgb,var(--c) 14%,var(--surface))}
-.seven-names b{font-size:18px;letter-spacing:-.02em}
-.seven-names span{font-size:12px;font-weight:700;color:color-mix(in srgb,var(--c) 70%,var(--ink))}
-.seven-names small{font-size:12px;line-height:1.45;color:var(--muted)}
-.seven-section .text-link{margin-top:22px;font-size:13px;font-weight:600}
-@media(max-width:1050px){.seven-names{grid-template-columns:repeat(7,minmax(150px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.seven-names li{scroll-snap-align:start}}
 @media(max-width:650px){.seven-section{padding-top:80px}.seven-stage{border-radius:22px}}
+/* отметки как на фото: невидимая область над Зароком, подпись — только при наведении, касании или фокусе */
+.seven-tag{position:absolute;z-index:2;width:11%;aspect-ratio:1;transform:translate(-50%,-50%);padding:0;border:0;border-radius:50%;background:none;cursor:pointer}
+.seven-tag:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.seven-bubble{position:absolute;left:50%;bottom:calc(100% - 6px);display:grid;gap:1px;width:max-content;max-width:220px;padding:9px 13px 10px;border-radius:14px;background:#182016e6;color:#f4f2e8;text-align:left;
+ transform:translate(-50%,6px);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:0 10px 26px #0004}
+.seven-bubble::after{content:"";position:absolute;left:50%;top:100%;border:7px solid transparent;border-top-color:#182016e6;transform:translateX(-50%)}
+.seven-bubble b{font-size:15px;letter-spacing:-.01em}
+.seven-bubble em{font-style:normal;font-size:12px;font-weight:700;color:color-mix(in srgb,var(--c) 55%,#fff)}
+.seven-bubble small{font-size:12px;line-height:1.4;color:#d9dccd}
+.seven-tag.left .seven-bubble{left:auto;right:30%;transform:translate(0,6px)}.seven-tag.left .seven-bubble::after{left:auto;right:18px;transform:none}
+.seven-tag.below .seven-bubble{bottom:auto;top:calc(100% - 6px)}.seven-tag.below .seven-bubble::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#182016e6}
+@media(hover:hover){.seven-tag:hover .seven-bubble{opacity:1;transform:translate(-50%,0)}.seven-tag.left:hover .seven-bubble{transform:none}}
+.seven-tag:focus-visible .seven-bubble,.seven-tag.open .seven-bubble{opacity:1;transform:translate(-50%,0)}
+.seven-tag.left:focus-visible .seven-bubble,.seven-tag.left.open .seven-bubble{transform:none}
+@media(max-width:650px){.seven-tag{width:14%}.seven-bubble{max-width:170px;padding:7px 10px 8px}.seven-bubble b{font-size:13px}.seven-bubble small{display:none}}

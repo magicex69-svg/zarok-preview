@@ -169,6 +169,13 @@ if(day){
   if('IntersectionObserver' in window)new IntersectionObserver(es=>{seen=es[0].isIntersecting;plan();},{threshold:.35}).observe(day);
   motionHooks.push(plan);
 }
+/* «Семь Зароков»: подпись Зарока по касанию (на телефоне нет наведения); одна открыта за раз, касание мимо — закрывает */
+const sevenStage=document.querySelector('[data-seven]');
+if(sevenStage){
+  const tags=[...sevenStage.querySelectorAll('.seven-tag')];
+  tags.forEach(t=>t.addEventListener('click',e=>{e.stopPropagation();const was=t.classList.contains('open');tags.forEach(x=>x.classList.remove('open'));t.classList.toggle('open',!was);}));
+  document.addEventListener('click',()=>tags.forEach(x=>x.classList.remove('open')));
+}
 /* «Семь Зароков» на главной: видео по кругу идёт, только пока блок на экране; при «меньше движения» остаётся кадр */
 const seven=document.querySelector('[data-seven-video]');
 if(seven){
