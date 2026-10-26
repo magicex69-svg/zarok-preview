@@ -704,10 +704,11 @@ html.is-scrolled body:has(.hero-page) .site-header,body:has(.hero-page) .site-he
 
 /* «Один день с Зароком»: сцена во весь блок, телефон с экраном шага справа, заголовок и вкладки — на карточке слева */
 .day-page{position:relative;overflow:hidden}
-.day-stage{position:relative;overflow:hidden;aspect-ratio:2688/1520;max-height:92vh;min-height:560px}
-.day-art{position:absolute;left:50%;top:50%;width:max(100%,990px);aspect-ratio:2688/1520;transform:translate(-50%,-50%);opacity:0;transition:opacity .8s ease}
+.day-stage{--h:max(560px,min(56.548vw,92vh));position:relative;overflow:hidden;width:100%;height:var(--h)}
+/* кадр всегда закрывает сцену целиком (как cover), но сохраняет пропорции: по ним стоит экран-вёрстка */
+.day-art{position:absolute;left:50%;top:50%;width:max(100%,calc(var(--h)*2688/1520));aspect-ratio:2688/1520;transform:translate(-50%,-50%);opacity:0;transition:opacity .8s ease}
 .day-art.on{opacity:1}
 .day-art .hero-pic{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 .day-copy{position:absolute;z-index:3;left:0;right:0;top:50%;transform:translateY(-50%);pointer-events:none}
 .day-card{pointer-events:auto;width:min(440px,100%);padding:34px 32px 26px;border-radius:30px;background:color-mix(in srgb,var(--surface) 84%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 24px 60px #2a2f2214}
-@media(max-width:850px){.day-page{display:flex;flex-direction:column}.day-copy{position:relative;top:auto;transform:none;order:-1;padding-top:70px}.day-card{width:100%;padding:0;background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}.day-stage{aspect-ratio:1/1.02;min-height:0;max-height:none;margin-top:18px}.day-art{width:200%;left:-86%;top:auto;bottom:-2%;transform:none}}
+@media(max-width:850px){.day-page{display:flex;flex-direction:column}.day-copy{position:relative;top:auto;transform:none;order:-1;padding-top:70px}.day-card{width:100%;padding:0;background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}.day-stage{height:auto;aspect-ratio:1/1.02;margin-top:18px}.day-art{width:200%;left:-86%;top:auto;bottom:-2%;transform:none}}
