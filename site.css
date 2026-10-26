@@ -679,13 +679,15 @@ html:not([data-site-theme=porcelain]) .guide-directory-group a[data-client][aria
 .df-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .df-card{display:flex;flex-direction:column;gap:8px;min-width:0;padding:20px 22px 26px;border:1px solid var(--line);border-radius:28px;background:var(--surface)}
 .df-card h3{font-size:24px;letter-spacing:-.03em}.df-card p{font-size:15px;line-height:1.6;color:var(--muted);max-width:52ch}
-.df-ui{display:flex;flex-direction:column;justify-content:center;min-height:170px;margin-bottom:12px;padding:18px;border-radius:20px;background:var(--paper)}
-.df-promise{display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px 14px;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}.df-promise b{font-size:16px}.df-promise small{grid-column:1/-1;font-size:13px;font-weight:700;color:#c27b54}
-.df-stages{display:grid;grid-template-columns:2fr 1fr 2fr;gap:6px}.df-stages span{display:grid;gap:2px;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--surface)}.df-stages b{font-size:14px}.df-stages small{font-size:11px;color:var(--muted)}
-.df-stages .done{background:color-mix(in srgb,var(--accent) 14%,var(--surface))}.df-stages .pause{border-style:dashed;background:transparent}.df-stages .now{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
-.df-team{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.df-team img{width:100%;height:auto;aspect-ratio:1;object-fit:contain}
+.df-ui{display:flex;flex-direction:column;align-items:center;justify-content:center;height:270px;overflow:hidden;margin-bottom:12px;padding:14px;border-radius:20px;background:#f8f8f7}
+.df-ui img{display:block;max-width:100%;height:auto}
+.df-ui:has(.tall){justify-content:flex-start;-webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent)}
+
+
+
+
 @media(max-width:850px){.df-grid{grid-template-columns:1fr}}
-@media(max-width:650px){.df-section{padding-bottom:80px}.df-ui{min-height:0}.df-team{grid-template-columns:repeat(4,minmax(0,1fr))}.df-stages small{font-size:10px}}
+@media(max-width:650px){.df-section{padding-bottom:80px}}
 /* первый экран по картинке (26.10.2026): кадр 2688 × 1520 с вырезанным экраном телефона, под ним экран «Сегодня» (heroSection в tools/build-site.cjs);
    шапка на главной появляется, когда первый экран прокручен (public/site.js ставит html.is-scrolled) */
 body:has(.hero-page) .site-header{position:fixed;left:0;right:0;transform:translateY(-100%);opacity:0;transition:transform .35s ease,opacity .35s ease}
