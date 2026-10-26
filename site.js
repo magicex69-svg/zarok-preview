@@ -141,16 +141,20 @@ document.querySelector('[data-share-character]')?.addEventListener('click',async
   }catch(e){if(e.name!=='AbortError')toast('Не удалось поделиться. Ссылка на персонажа есть в адресной строке.');}
 });
 
-/* первый экран главной: дата на экране «Сегодня», третье дело отмечается само, прогресс растёт, Тёпа радуется; при «меньше движения» стоит */
+/* первый экран главной: экран «Сегодня» в вырезе картинки — масштаб по ширине выреза, дата, третье дело отмечается само и растёт прогресс
+   (при «меньше движения» стоит); шапка появляется, когда первый экран прокручен */
 const hero=document.querySelector('[data-hero-demo]');
 if(hero){
+  const art=hero.querySelector('.hero-art'),ui=hero.querySelector('[data-hero-ui]'),fit=()=>ui.style.setProperty('--s',art.clientWidth/2688);
+  fit();if('ResizeObserver' in window)new ResizeObserver(fit).observe(art);else addEventListener('resize',fit);
   const date=hero.querySelector('[data-hero-date]');try{date.textContent=new Date().toLocaleDateString(document.documentElement.lang||'ru',{day:'numeric',month:'long'});}catch(e){}
-  const task=hero.querySelector('[data-hero-task]'),count=hero.querySelector('[data-hero-count]'),bar=hero.querySelector('[data-hero-bar]'),zork=hero.querySelector('.hero-zarok');
-  const calm=zork.getAttribute('src'),cheer=zork.dataset.cheer;let timer=0,on=false;
-  const set=v=>{on=v;task.classList.toggle('done',v);count.textContent=v?'3':'2';bar.style.width=v?'75%':'50%';hero.classList.toggle('cheer',v);zork.src=v?cheer:calm;};
+  const task=hero.querySelector('[data-hero-task]'),count=hero.querySelector('[data-hero-count]'),bar=hero.querySelector('[data-hero-bar]');let timer=0,on=false;
+  const set=v=>{on=v;task.classList.toggle('done',v);count.textContent=v?'3':'2';bar.style.width=v?'75%':'50%';};
   const tick=()=>{set(!on);timer=setTimeout(tick,on?3800:2600);};
-  const run=()=>{clearTimeout(timer);set(false);if(!isReduced()){load(cheer).catch(()=>{});timer=setTimeout(tick,1800);}};
+  const run=()=>{clearTimeout(timer);set(false);if(!isReduced())timer=setTimeout(tick,1800);};
   motionHooks.push(run);run();
+  const scrolled=()=>document.documentElement.classList.toggle('is-scrolled',scrollY>hero.offsetHeight*.6);
+  scrolled();addEventListener('scroll',scrolled,{passive:true});
 }
 /* «Один день с Зароком» на главной: утро, задачи, привычки, вечер. Шаги идут сами, пока блок на экране и никто не нажимал; при «меньше движения» — только по нажатию */
 const day=document.querySelector('[data-day]');
