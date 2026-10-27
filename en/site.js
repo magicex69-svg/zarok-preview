@@ -243,6 +243,11 @@ document.querySelectorAll('[data-fx]').forEach(fx=>{
   new IntersectionObserver(es=>es.forEach(e=>{seen=e.isIntersecting;if(seen)go(cur,4500);else clearTimeout(timer);}),{threshold:.35}).observe(fx);
 });
 
+document.querySelectorAll('[data-cn-tabs]').forEach(box=>{const tabs=[...box.querySelectorAll('[data-cn-tab]')],panels=[...box.querySelectorAll('.cn-panel')];
+  const show=i=>{tabs.forEach((t,k)=>{t.setAttribute('aria-selected',String(k===i));t.tabIndex=k===i?0:-1;});panels.forEach((p,k)=>p.hidden=k!==i);};
+  tabs.forEach((t,i)=>{t.addEventListener('click',()=>show(i));t.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const n=(i+d+tabs.length)%tabs.length;show(n);tabs[n].focus();});});
+});
+
 
 document.querySelectorAll('[data-icon-cycle]').forEach(box=>{
   const faces=[...box.querySelectorAll('img')],name=box.querySelector('[data-icon-name]');let i=0,timer=0;

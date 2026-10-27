@@ -252,6 +252,11 @@ document.querySelectorAll('[data-fx]').forEach(fx=>{
     t.addEventListener('keydown',e=>{const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const n=(i+d+tabs.length)%tabs.length;go(n,12000);tabs[n].focus();});});
   new IntersectionObserver(es=>es.forEach(e=>{seen=e.isIntersecting;if(seen)go(cur,4500);else clearTimeout(timer);}),{threshold:.35}).observe(fx);
 });
+/* «Зарок для Claude і ChatGPT»: вкладки клиентов, стрелками ←→ по вкладкам */
+document.querySelectorAll('[data-cn-tabs]').forEach(box=>{const tabs=[...box.querySelectorAll('[data-cn-tab]')],panels=[...box.querySelectorAll('.cn-panel')];
+  const show=i=>{tabs.forEach((t,k)=>{t.setAttribute('aria-selected',String(k===i));t.tabIndex=k===i?0:-1;});panels.forEach((p,k)=>p.hidden=k!==i);};
+  tabs.forEach((t,i)=>{t.addEventListener('click',()=>show(i));t.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const n=(i+d+tabs.length)%tabs.length;show(n);tabs[n].focus();});});
+});
 /* «Сначала ваши слова»: разговор проигрывается, пока блок на экране — фраза набирается в поле, уходит, приходят ответ и план,
    галочки отмечаются, «Применить», «Готово»; пауза и заново. При «меньше движения» виден итог (без класса run) */
 /* «Можливості»: лица ярлыка «Зарок» сменяются каждые 2 с, пока полоса значков на экране */
