@@ -240,6 +240,26 @@ document.querySelectorAll('[data-fx]').forEach(fx=>{
 });
 /* «Сначала ваши слова»: разговор проигрывается, пока блок на экране — фраза набирается в поле, уходит, приходят ответ и план,
    галочки отмечаются, «Применить», «Готово»; пауза и заново. При «меньше движения» виден итог (без класса run) */
+/* «Можливості»: лица ярлыка «Зарок» сменяются каждые 2 с, пока полоса значков на экране */
+document.querySelectorAll('[data-icon-cycle]').forEach(box=>{
+  const faces=[...box.querySelectorAll('img')],name=box.querySelector('[data-icon-name]');let i=0,timer=0;
+  if(document.documentElement.dataset.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const step=()=>{faces[i].classList.remove('on');i=(i+1)%faces.length;faces[i].classList.add('on');name.textContent=faces[i].dataset.face;};
+  new IntersectionObserver(es=>es.forEach(e=>{clearInterval(timer);if(e.isIntersecting)timer=setInterval(step,2000);}),{threshold:.4}).observe(box);
+});
+
+/* «Можливості»: живые обзоры — шаг сам сменяется каждые 3,6 с, пока блок на экране; нажатие выбирает шаг и держит его дольше */
+document.querySelectorAll('[data-tour]').forEach(tour=>{
+  const steps=[...tour.querySelectorAll('[data-tour-step]')],shots=[...tour.querySelectorAll('.tour-shot')];let cur=0,timer=0,seen=false;
+  const calm=()=>document.documentElement.dataset.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const show=i=>{cur=i;steps.forEach((b,k)=>b.toggleAttribute('aria-current',k===i));shots.forEach((s,k)=>s.classList.toggle('on',k===i));tour.style.setProperty('--tour-run',calm()?'paused':'running');};
+  const next=wait=>{clearTimeout(timer);if(!seen||calm())return;timer=setTimeout(()=>{show((cur+1)%steps.length);restart();next(3600);},wait);};
+  const restart=()=>{const b=steps[cur].querySelector('i');if(b){b.style.animation='none';void b.offsetWidth;b.style.animation='';}};
+  steps.forEach((b,i)=>b.addEventListener('click',()=>{show(i);restart();next(9000);}));
+  new IntersectionObserver(es=>es.forEach(e=>{seen=e.isIntersecting;if(seen){restart();next(3600);}else clearTimeout(timer);}),{threshold:.35}).observe(tour);
+  show(0);
+});
+
 document.querySelectorAll('[data-ai-chat]').forEach(chat=>{
   const steps=[...chat.querySelectorAll('[data-ai-step]')].sort((a,b)=>a.dataset.aiStep-b.dataset.aiStep),field=chat.querySelector('[data-ai-typing]'),text=steps[0].textContent;
   let timers=[],shown=false,running=false;

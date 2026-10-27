@@ -881,3 +881,40 @@ body:has(.hero-page) .site-header .brand img{width:calc(30px + 6px * var(--k));h
 .lang-menu{position:relative}.lang-menu>summary{display:inline-flex;align-items:center;justify-content:center;min-height:40px;min-width:40px;list-style:none;cursor:pointer;color:var(--ink)}.lang-menu>summary::-webkit-details-marker{display:none}
 .lang-pop{min-width:180px}.lang-pop a,.lang-pop span{padding:11px 14px;font-size:14px}
 .lang-pop span{display:flex;justify-content:space-between;border-radius:14px;background:var(--soft);font-weight:700;color:var(--ink)}.lang-pop span::after{content:'✓';color:var(--accent)}
+/* «Возможности»: живые обзоры «Вместе с друзьями» и «Серии и награды» */
+.tour{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:center}
+.tour.flip{grid-template-columns:auto minmax(0,1fr)}.tour.flip .tour-phone{order:-1}
+.tour h2{font-size:clamp(32px,3.8vw,52px);letter-spacing:-.05em;margin:0 0 12px}
+.tour-copy>p{max-width:560px;font-size:15px;line-height:1.7;color:var(--muted);margin:0 0 22px}
+.tour-steps{list-style:none;display:grid;gap:8px;margin:0;padding:0;max-width:560px}
+.tour-steps button{position:relative;display:block;width:100%;padding:14px 18px;border:1px solid transparent;border-radius:18px;background:none;text-align:left;color:var(--ink);cursor:pointer;overflow:hidden;font:inherit}
+.tour-steps button:hover{background:color-mix(in srgb,var(--soft) 60%,transparent)}
+.tour-steps button[aria-current]{border-color:var(--line);background:var(--surface);box-shadow:0 10px 26px #2a2f2212}
+.tour-steps b{display:block;font-size:16px;margin-bottom:2px}
+.tour-steps span{display:block;font-size:13.5px;line-height:1.55;color:var(--muted)}
+.tour-steps button:not([aria-current]) span{display:none}
+.tour-steps i{position:absolute;left:18px;right:18px;bottom:7px;height:2px;border-radius:2px;background:var(--accent);transform-origin:left;transform:scaleX(0);opacity:0}
+.tour-steps button[aria-current] i{opacity:.55;animation:tour-bar 3.6s linear forwards;animation-play-state:var(--tour-run,running)}
+@keyframes tour-bar{to{transform:scaleX(1)}}
+.tour-copy>.tour-note{margin:18px 0 0;font-size:12.5px;color:var(--muted);max-width:560px}
+.tour-phone{--w:300px}
+.tour-phone .fx-screen>img.tour-shot{position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
+.tour-phone .fx-screen>img.tour-shot.on{opacity:1}
+@media(max-width:850px){.tour,.tour.flip{grid-template-columns:1fr;gap:28px}.tour.flip .tour-phone{order:0}.tour-phone{justify-self:center;--w:270px}}
+html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motion:reduce){.tour-steps i{display:none}.tour-phone .fx-screen>img.tour-shot{transition:none}}
+/* «Возможности»: полоса значков приложения под каруселью тем */
+.tf-icons{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center;margin-top:44px;padding-top:32px;border-top:1px solid var(--line)}
+.tf-icons h3{font-size:24px;letter-spacing:-.03em;margin:0 0 8px}.tf-icons p{max-width:520px;margin:0;font-size:14px;line-height:1.7;color:var(--muted)}
+.tf-home{display:grid;grid-template-columns:repeat(3,64px);gap:28px 22px;padding:24px 28px;border-radius:30px;background:linear-gradient(160deg,#c9d6bf,#e7dcc8 55%,#d3dbe4);box-shadow:inset 0 0 0 1px #ffffff80}
+.tf-app,.tf-zarok{position:relative;width:64px;height:64px;border-radius:18px}
+.tf-app{background:var(--c);box-shadow:0 4px 10px #2a2f2214}
+.tf-zarok img{position:absolute;inset:0;width:100%;height:100%;border-radius:18px;opacity:0;transition:opacity .45s ease;box-shadow:0 8px 18px #2a2f2230}
+.tf-zarok img.on{opacity:1}
+.tf-zarok small{position:absolute;left:50%;top:calc(100% + 6px);transform:translateX(-50%);white-space:nowrap;font-size:10.5px;font-weight:700;color:#2b3324}
+.tf-home{padding-bottom:34px}
+@media(max-width:850px){.tf-icons{grid-template-columns:1fr;gap:24px}.tf-home{justify-self:center}}
+/* «Где открыть»: 9 языков */
+.download-langs{padding-top:10px;padding-bottom:40px}
+.lang-chips{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;padding:0}
+.lang-chips li{padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:14px;font-weight:600}
+
