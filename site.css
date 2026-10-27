@@ -188,14 +188,9 @@ body:has(.hc-center) [data-cycle-theme]{display:none}
 .guide-directory-group{margin-bottom:21px}
 .guide-directory-group h3{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 8px 7px;font:500 10px/1.5 var(--ui);letter-spacing:0;color:var(--muted)}
 .guide-directory-group h3 small{font-size:9px;font-weight:500;opacity:.8}
-.guide-directory-group a{display:flex;align-items:center;gap:11px;min-height:43px;padding:9px 10px;text-decoration:none;border-radius:7px;margin:2px 0;border-left:2px solid transparent}
 .guide-directory-group a>span:nth-child(2){flex:1;min-width:0}
-.guide-directory-group a b{display:block;font-size:12px;font-weight:550;line-height:1.6}
+.guide-directory-group a b{display:block;font-size:14px;font-weight:600;line-height:1.6}
 .guide-directory-group a small{display:none}
-.guide-directory-group a:hover{background:var(--soft)}
-.guide-directory-group a[aria-current]{background:var(--soft);border-left-color:var(--accent)}
-.guide-nav-arrow{font-size:12px;color:var(--muted);opacity:0}
-.guide-directory-group a[aria-current] .guide-nav-arrow{opacity:1}
 .guide-directory-foot{display:flex;align-items:center;gap:7px;padding:14px 8px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}
 .guide-directory-foot svg{width:14px;height:14px}
 .guide-empty{padding:12px;font-size:12px}
@@ -449,8 +444,6 @@ html:not([data-site-theme=porcelain]) .pricing-page[data-price-design=glass] .pr
 .mark-service{background:#fff;border-radius:7px;padding:3px;border:1px solid var(--line)}
 .mark-service img{object-fit:contain}
 .guide-panel-heading>.mark-service{padding:6px}
-.guide-directory-group a[data-client][aria-current]{background:color-mix(in srgb,var(--client-wash) 20%,var(--soft));border-left-color:var(--client);box-shadow:0 0 0 1px color-mix(in srgb,var(--client-wash) 45%,transparent),0 4px 14px color-mix(in srgb,var(--client-wash) 28%,transparent)}
-html:not([data-site-theme=porcelain]) .guide-directory-group a[data-client][aria-current]{background:color-mix(in srgb,var(--client-wash) 14%,var(--soft))}
 
 /* Нажимаемая область не меньше 40×40 на телефоне (проверка сайта, 18 октября 2026): подвал, логотип, переключатель языка,
    вкладки и образцы оформления на главной. Вид прежний: растёт только высота строки и поля вокруг. */
@@ -1093,4 +1086,13 @@ html[data-motion=reduce] .cn-ex.on *{animation:none!important}
 .cn-pgroup li{padding:12px 0;border-bottom:1px solid var(--line)}
 .cn-pgroup li:last-child{border-bottom:0}
 .cn-pgroup p{margin:0;font-size:14px;line-height:1.55}
-
+/* каталог подключений (/zarok-preview/mcp-guide) и клиенты коннектора: стеклянные плашки, как в «День становится понятнее»;
+   выбранная подсвечивается цветом сервиса (--client, --client-wash из [data-client]) */
+.guide-directory-group a{display:flex;align-items:center;gap:11px;min-height:48px;padding:8px 10px;margin:3px 0;border:1px solid transparent;border-radius:14px;text-decoration:none;color:var(--ink);transition:background .2s,border-color .2s,box-shadow .2s}
+.guide-directory-group a .guide-mark{width:32px;height:32px;padding:5px;border-radius:10px;background:var(--soft)}
+.guide-directory-group a:hover{background:color-mix(in srgb,var(--client-wash,var(--soft)) 10%,var(--paper))}
+.guide-directory-group a[aria-current],.cn-gnav.fx-tabs button[aria-selected=true]{background:color-mix(in srgb,var(--client-wash,#c3d0c6) 16%,#fff);border-color:color-mix(in srgb,var(--client-wash,#c3d0c6) 50%,var(--line));box-shadow:0 8px 22px color-mix(in srgb,var(--client-wash,#c3d0c6) 22%,transparent)}
+.guide-directory-group a[aria-current] .guide-mark,.cn-gnav.fx-tabs button[aria-selected=true] .guide-mark{background:#fff;box-shadow:0 0 0 1px color-mix(in srgb,var(--client-wash,#c3d0c6) 50%,var(--line))}
+html:not([data-site-theme=porcelain]) .guide-directory-group a[aria-current]{background:color-mix(in srgb,var(--client-wash,#c3d0c6) 14%,var(--soft))}
+/* панель каталога получает фокус при переходе по ссылке: без рамки браузера; с клавиатуры виден контур заголовка панели */
+.guide-panel:focus,.guide-panel:focus-visible{outline:none}
