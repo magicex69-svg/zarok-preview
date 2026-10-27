@@ -917,4 +917,10 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 .download-langs{padding-top:10px;padding-bottom:40px}
 .lang-chips{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;padding:0}
 .lang-chips li{padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:14px;font-weight:600}
+/* «Возможности»: вкладки проигрывателя сменяются сами — полоска под выбранной вкладкой показывает, когда следующая */
+.fx-tabs button{position:relative;overflow:hidden}
+.fx-tabs button::after{content:'';position:absolute;left:14px;right:14px;bottom:4px;height:2px;border-radius:2px;background:var(--accent);transform-origin:left;transform:scaleX(0);opacity:0}
+.fx-tabs button.fx-run[aria-selected=true]::after{opacity:.5;animation:tour-bar 4.5s linear forwards}
+.fx-tabs button.fx-hold::after{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.fx-tabs button::after{display:none}}html[data-motion=reduce] .fx-tabs button::after{display:none}
 

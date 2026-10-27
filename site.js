@@ -235,8 +235,18 @@ document.querySelectorAll('.open-menu,.lang-menu').forEach(m=>{
 document.querySelectorAll('[data-fx]').forEach(fx=>{
   const tabs=[...fx.querySelectorAll('[data-fx-tab]')],panes=[...fx.querySelectorAll('.fx-pane')],shots=[...fx.querySelectorAll('[data-fx-shot]')];
   const show=i=>{tabs.forEach((t,k)=>{t.setAttribute('aria-selected',String(k===i));t.tabIndex=k===i?0:-1;});panes.forEach((p,k)=>p.hidden=k!==i);shots.forEach((s,k)=>s.classList.toggle('on',k===i));};
-  tabs.forEach((t,i)=>{t.addEventListener('click',()=>show(i));
-    t.addEventListener('keydown',e=>{const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const n=(i+d+tabs.length)%tabs.length;show(n);tabs[n].focus();});});
+  /* сами по кругу, как живые обзоры (владелец, 27.10.2026): шаг 4,5 с, пока блок на экране и курсор не над ним;
+     нажатие или клавиши выбирают вкладку и держат её 12 с; на телефоне активная вкладка подъезжает в ленте, страница не сдвигается */
+  const bar=fx.querySelector('.fx-tabs'),calm=()=>document.documentElement.dataset.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur=0,timer=0,seen=false,hover=false;
+  const go=i=>{cur=i;show(i);const t=tabs[i];if(bar&&bar.scrollWidth>bar.clientWidth)bar.scrollTo({left:t.offsetLeft-(bar.clientWidth-t.offsetWidth)/2,behavior:calm()?'auto':'smooth'});
+    t.classList.remove('fx-run');void t.offsetWidth;if(!calm())t.classList.add('fx-run');};
+  const next=wait=>{clearTimeout(timer);tabs.forEach(t=>t.classList.toggle('fx-hold',hover));if(!seen||hover||calm())return;timer=setTimeout(()=>{go((cur+1)%tabs.length);next(4500);},wait);};
+  tabs.forEach((t,i)=>{t.addEventListener('click',()=>{go(i);next(12000);});
+    t.addEventListener('keydown',e=>{const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const n=(i+d+tabs.length)%tabs.length;go(n);tabs[n].focus();next(12000);});});
+  fx.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){hover=true;next(0);}});
+  fx.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){hover=false;go(cur);next(4500);}});
+  new IntersectionObserver(es=>es.forEach(e=>{seen=e.isIntersecting;if(seen){go(cur);next(4500);}else clearTimeout(timer);}),{threshold:.35}).observe(fx);
 });
 /* «Сначала ваши слова»: разговор проигрывается, пока блок на экране — фраза набирается в поле, уходит, приходят ответ и план,
    галочки отмечаются, «Применить», «Готово»; пауза и заново. При «меньше движения» виден итог (без класса run) */
