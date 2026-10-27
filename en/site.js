@@ -35,6 +35,12 @@ document.querySelector('[data-cycle-theme]')?.addEventListener('click',()=>{setM
 document.querySelectorAll('[data-phone-art]').forEach(art=>{const ui=art.querySelector('.hero-ui'),fit=()=>ui.style.setProperty('--s',art.clientWidth/2688);
   fit();if('ResizeObserver' in window)new ResizeObserver(fit).observe(art);else addEventListener('resize',fit);});
 
+
+const heroMark=document.querySelector('.hero-mark'),heroTag=document.querySelector('.hero-tag');
+if(heroMark&&heroTag&&heroMark.firstChild){const fitTag=()=>{heroTag.style.fontSize='';if(getComputedStyle(heroTag).whiteSpace!=='nowrap')return;
+  const r=document.createRange();r.selectNodeContents(heroMark.firstChild);const want=r.getBoundingClientRect().width*.9,has=heroTag.scrollWidth;
+  if(has>want)heroTag.style.fontSize=(parseFloat(getComputedStyle(heroTag).fontSize)*want/has).toFixed(1)+'px';};
+  fitTag();addEventListener('resize',fitTag);if(document.fonts)document.fonts.ready.then(fitTag);}
 const hero=document.querySelector('[data-hero-demo]');
 if(hero){
   const date=hero.querySelector('[data-hero-date]');try{date.textContent=new Date().toLocaleDateString(document.documentElement.lang||'ru',{day:'numeric',month:'long'});}catch(e){}
