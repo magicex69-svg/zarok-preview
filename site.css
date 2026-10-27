@@ -901,6 +901,12 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 @media(max-width:850px){.tf-icons{grid-template-columns:1fr;gap:24px}.tf-home{justify-self:center}}
 /* «Где открыть»: 9 языков */
 .download-langs{padding-top:10px;padding-bottom:40px}
+/* глобус с заголовком на большой плашке, как плашки «Возможностей» */
+.langs-card{padding:34px 36px 30px;border:1px solid color-mix(in srgb,var(--accent) 16%,var(--line));border-radius:30px;background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--accent) 9%,transparent),transparent 65%),color-mix(in srgb,var(--accent) 2%,var(--surface));box-shadow:0 3px 0 color-mix(in srgb,var(--accent) 7%,transparent)}
+.langs-head{max-width:640px}
+.langs-head h2{margin:0 0 10px;font-size:clamp(28px,3vw,40px);line-height:1.08;letter-spacing:-.045em}
+.langs-head p{margin:0;font-size:15px;line-height:1.6;color:var(--muted)}
+@media(max-width:650px){.langs-card{padding:22px 16px 20px;border-radius:22px}.langs-head p{font-size:14px}}
 /* «Где открыть»: глобус языков (public/globe.js) — чёрно-белый, цвета берутся отсюда */
 .globe{--g-sea:#fffefb;--g-land:#e4e1d9;--g-lang:#c9c5ba;--g-sel:#858176;--g-line:#aaa59a;--g-edge:#2a2f22;--g-shade:rgba(42,47,34,.13);position:relative;user-select:none;-webkit-user-select:none;height:min(560px,92vw);margin:26px auto 0;max-width:760px}
 .globe::after{content:"";position:absolute;left:28%;right:28%;bottom:-6px;height:22px;border-radius:50%;background:radial-gradient(closest-side,#2a2f2222,transparent);pointer-events:none}
@@ -920,7 +926,15 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 @media(max-width:650px){.globe{height:min(420px,96vw);margin-top:18px}.globe-tag{padding:5px 10px;font-size:12px}.globe-zoom button{width:32px;height:32px}}
 /* «Возможности»: вкладки проигрывателя сменяются сами — полоска под выбранной вкладкой показывает, когда следующая */
 .fx-tabs button{position:relative;overflow:hidden}
-.fx-tabs button::after{content:'';position:absolute;left:14px;right:14px;bottom:4px;height:2px;border-radius:2px;background:var(--accent);transform-origin:left;transform:scaleX(0);opacity:0}
-.fx-tabs button.fx-run[aria-selected=true]::after{opacity:.5;animation:tour-bar var(--fx-t,4.5s) linear forwards}
+/* вместо полоски — еле заметная заливка самой кнопки: мягкий край идёт слева направо за время до следующей вкладки,
+   внутри медленно плывут светлые пятна; место пятен у каждой вкладки своё (--fx-x, --fx-y из site.js) */
+.fx-tabs button>*{position:relative;z-index:1}
+.fx-tabs button::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
+  background:radial-gradient(55% 140% at var(--fx-x,30%) var(--fx-y,40%),color-mix(in srgb,var(--accent) 20%,transparent),transparent 70%),radial-gradient(45% 120% at calc(100% - var(--fx-x,30%)) calc(100% - var(--fx-y,40%)),color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%),linear-gradient(90deg,color-mix(in srgb,var(--accent) 6%,transparent),color-mix(in srgb,var(--accent) 12%,transparent));
+  background-size:180% 100%,160% 100%,100% 100%;
+  -webkit-mask:linear-gradient(90deg,#000 0 42%,transparent 58%) 100% 0/240% 100% no-repeat;mask:linear-gradient(90deg,#000 0 42%,transparent 58%) 100% 0/240% 100% no-repeat}
+.fx-tabs button.fx-run[aria-selected=true]::after{opacity:1;animation:fx-fill var(--fx-t,4.5s) cubic-bezier(.45,.05,.35,1) forwards,fx-drift 2.8s ease-in-out infinite alternate}
+@keyframes fx-fill{from{-webkit-mask-position:100% 0;mask-position:100% 0}to{-webkit-mask-position:0 0;mask-position:0 0}}
+@keyframes fx-drift{from{background-position:0 0,100% 0,0 0}to{background-position:100% 0,0 0,0 0}}
 @media(prefers-reduced-motion:reduce){.fx-tabs button::after{display:none}}html[data-motion=reduce] .fx-tabs button::after{display:none}
 

@@ -241,7 +241,7 @@ document.querySelectorAll('[data-fx]').forEach(fx=>{
   const bar=fx.querySelector('.fx-tabs'),calm=()=>document.documentElement.dataset.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches;
   let cur=0,timer=0,seen=false;
   const go=(i,wait)=>{cur=i;show(i);const t=tabs[i];if(bar&&bar.scrollWidth>bar.clientWidth)bar.scrollTo({left:t.offsetLeft-(bar.clientWidth-t.offsetWidth)/2,behavior:calm()?'auto':'smooth'});
-    t.style.setProperty('--fx-t',wait/1000+'s');t.classList.remove('fx-run');void t.offsetWidth;if(!calm())t.classList.add('fx-run');
+    t.style.setProperty('--fx-t',wait/1000+'s');t.style.setProperty('--fx-x',20+Math.random()*60+'%');t.style.setProperty('--fx-y',20+Math.random()*60+'%');t.classList.remove('fx-run');void t.offsetWidth;if(!calm())t.classList.add('fx-run');
     clearTimeout(timer);if(seen&&!calm())timer=setTimeout(()=>go((cur+1)%tabs.length,4500),wait);};
   tabs.forEach((t,i)=>{t.addEventListener('click',()=>go(i,12000));
     t.addEventListener('keydown',e=>{const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const n=(i+d+tabs.length)%tabs.length;go(n,12000);tabs[n].focus();});});

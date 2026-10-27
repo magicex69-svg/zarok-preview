@@ -19,8 +19,9 @@ let cl,sl,cp,sp,col={};
 const colors=()=>{const s=getComputedStyle(box),g=n=>s.getPropertyValue(n).trim();col={sea:g('--g-sea'),land:g('--g-land'),lang:g('--g-lang'),sel:g('--g-sel'),line:g('--g-line'),edge:g('--g-edge'),shade:g('--g-shade')};};
 /* поворот: середина глобуса — (lam, phi); r — вправо, u — вверх, d — к зрителю */
 const rot=(x,y,z)=>{const x1=x*cl+y*sl,y1=-x*sl+y*cl;return[y1,-x1*sp+z*cp,x1*cp+z*sp];};
-const size=()=>{const r=box.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;
-  ctx.setTransform(dpr,0,0,dpr,0,0);cx=W/2;cy=H/2;dirty=true;};
+/* холст перерисовывается сразу после смены размера: иначе на кадр он пустой и глобус мигает при прокрутке (панель адреса на телефоне) */
+const size=()=>{const r=box.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);if(r.width===W&&r.height===H&&cv.width===Math.round(W*dpr))return;
+  W=r.width;H=r.height;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);cx=W/2;cy=H/2;if(cl!==undefined)draw();};
 /* контур страны, обрезанный по краю видимой половины (как в картографических библиотеках): видимые куски контура
    соединяются по окружности по часовой стрелке с ближайшим следующим куском — так целы и страны у края, и заливы за краем.
    Контуры обходятся по часовой (tools/site-globe-data.cjs) */
@@ -57,16 +58,16 @@ const draw=()=>{cl=Math.cos(lam*D);sl=Math.sin(lam*D);cp=Math.cos(phi*D);sp=Math
   place();};
 /* плашки: у точки языка, а если место занято — рядом, с тонкой линией к точке; выбранная и ближние к середине ставятся первыми */
 const SLOTS=[[0,0],[0,-36],[0,36],[-1,0],[1,0],[-1,-30],[1,-30],[-1,30],[1,30]];
-const place=()=>{const used=[],order=langs.map(l=>{const q=rot(...vec(...l.at));return{l,q};}).sort((a,b)=>(b.l===sel)-(a.l===sel)||b.q[2]-a.q[2]);
+const place=()=>{const used=[],order=langs.map(l=>{const q=rot(...vec(...l.at));return{l,q};}).sort((a,b)=>(b.l===sel)-(a.l===sel)||(b.l.shown|0)-(a.l.shown|0)||b.q[2]-a.q[2]);
   ctx.beginPath();
   for(const {l,q} of order){const t=l.t;if(!l.w){l.w=t.offsetWidth;l.h=t.offsetHeight;}
     const x=cx+R*q[0],y=cy-R*q[1],a=Math.max(0,Math.min(1,(q[2]-.12)/.2));
-    if(a<=0||x<-40||x>W+40||y<-20||y>H+20){t.style.opacity=0;t.style.pointerEvents='none';continue;}
+    if(a<=0||x<-40||x>W+40||y<-20||y>H+20){l.shown=false;t.style.opacity=0;t.style.pointerEvents='none';continue;}
     const fits=s=>{const [sx,sy]=SLOTS[s],dx=sx===-1?-(l.w/2+14):sx===1?l.w/2+14:0,b={x:x+dx-l.w/2,y:y+sy-l.h/2,w:l.w,h:l.h};
       return b.x>=2&&b.x+b.w<=W-2&&b.y>=2&&b.y+b.h<=H-2&&used.every(u=>b.x+b.w+6<u.x||u.x+u.w+6<b.x||b.y+b.h+4<u.y||u.y+u.h+4<b.y)?b:null;};
     let s=l.slot,b=fits(s);if(!b)for(s=0;s<SLOTS.length&&!(b=fits(s));s++);
-    if(!b){t.style.opacity=0;t.style.pointerEvents='none';continue;}
-    l.slot=s;used.push(b);t.style.transform='translate('+b.x+'px,'+b.y+'px)';t.style.opacity=a;t.style.pointerEvents=a>.5?'auto':'none';
+    if(!b){l.shown=false;t.style.opacity=0;t.style.pointerEvents='none';continue;}
+    l.slot=s;l.shown=true;used.push(b);t.style.transform='translate('+b.x+'px,'+b.y+'px)';t.style.opacity=a;t.style.pointerEvents=a>.5?'auto':'none';
     t.classList.toggle('on',l===sel);
     ctx.moveTo(x+2.5,y);ctx.arc(x,y,2.5,0,7);if(s){ctx.moveTo(x,y);ctx.lineTo(b.x+b.w/2,b.y+b.h/2);}}
   ctx.fillStyle=ctx.strokeStyle=col.edge;ctx.lineWidth=1;ctx.globalAlpha=.7;ctx.fill();ctx.stroke();ctx.globalAlpha=1;};
