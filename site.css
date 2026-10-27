@@ -1096,3 +1096,31 @@ html[data-motion=reduce] .cn-ex.on *{animation:none!important}
 html:not([data-site-theme=porcelain]) .guide-directory-group a[aria-current]{background:color-mix(in srgb,var(--client-wash,#c3d0c6) 14%,var(--soft))}
 /* панель каталога получает фокус при переходе по ссылке: без рамки браузера; с клавиатуры виден контур заголовка панели */
 .guide-panel:focus,.guide-panel:focus-visible{outline:none}
+/* каталог подключений: смена инструкции — плавно */
+.guide-ready .guide-panel:not([hidden]){animation:fx-in .3s ease}
+html[data-motion=reduce] .guide-ready .guide-panel:not([hidden]){animation:none}
+/* панель сервиса: «Как подключить» / «Как отключить» */
+.guide-howto{margin-top:22px}
+.guide-howto-tabs{display:inline-flex;gap:4px;padding:4px;margin-bottom:18px;border:1px solid var(--line);border-radius:999px;background:var(--soft)}
+.guide-howto-tabs button{padding:8px 16px;border:0;border-radius:999px;background:none;color:var(--muted);font:600 13px/1.2 var(--ui);cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+.guide-howto-tabs button[aria-selected=true]{background:#fff;color:var(--ink);box-shadow:0 2px 8px #2a2f2214}
+.guide-howto-tabs button:focus-visible{outline:2px solid var(--client,var(--accent));outline-offset:2px}
+.guide-howto [role=tabpanel]:not([hidden]){animation:fx-in .3s ease}
+.guide-off-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:8px}
+.guide-off-cards article{padding:16px 18px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,#fff 60%,var(--paper))}
+.guide-off-cards h3{margin:0 0 6px;font-size:15px;letter-spacing:-.02em}
+.guide-off-cards p{margin:0;font-size:13px;line-height:1.6;color:var(--muted)}
+/* «Доступ к вашему плану» и «Данные и приватность» — светлые стеклянные карточки со значком */
+.guide-access .section-title h2{font-size:clamp(26px,2.6vw,34px)}
+.guide-access .section-title .text-link{font-size:13px;font-weight:600}
+.guide-access-grid,.guide-access-grid.is-two{gap:14px}
+.guide-access-grid article{padding:20px 22px;border:1px solid color-mix(in srgb,var(--accent) 10%,var(--line));border-radius:20px;background:color-mix(in srgb,#fff 60%,var(--paper));box-shadow:0 8px 24px #2a2f220a}
+.guide-access-grid svg,.guide-access-grid.is-two svg{display:inline-block;box-sizing:content-box;width:20px;height:20px;padding:9px;margin-bottom:12px;border-radius:12px;background:var(--soft);color:var(--accent)}
+.guide-access-grid h3{font-size:17px;margin:0 0 6px}
+.guide-access-grid p{font-size:14px;line-height:1.6;color:var(--muted);margin:0}
+.guide-prep{margin-top:16px;padding:14px 18px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,#fff 60%,var(--paper))}
+.guide-prep summary{cursor:pointer;font-weight:600;font-size:14px}
+.guide-prep p{font-size:14px;color:var(--muted)}
+.guide-legal{margin-top:14px;font-size:12px;color:var(--muted)}
+@media(max-width:850px){.guide-off-cards{grid-template-columns:minmax(0,1fr)}.guide-access-grid,.guide-access-grid.is-two{grid-template-columns:minmax(0,1fr)}}
+

@@ -28,7 +28,9 @@
     if (options.focus) {
       const heading = panel.querySelector('h2');
       heading.focus({ preventScroll: true });
-      root.scrollIntoView({ behavior: 'instant', block: 'start' });
+      /* список слева остаётся там, где его пролистали; на компьютере панель и так на виду (липкая),
+         на телефоне список сворачивается — плавно подъезжаем к инструкции */
+      if (mobile.matches) panel.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     }
   }
   root.classList.add('guide-ready');
@@ -47,6 +49,14 @@
     links.forEach(link => { link.hidden = !link.textContent.toLocaleLowerCase().includes(query); });
     root.querySelectorAll('[data-guide-group]').forEach(group => { group.hidden = ![...group.querySelectorAll('[data-guide-link]')].some(link => !link.hidden); });
     root.querySelector('[data-guide-empty]').hidden = links.some(link => !link.hidden);
+  });
+  /* в панели сервиса: «Как подключить» / «Как отключить» */
+  root.addEventListener('click', event => {
+    const tab = event.target.closest('[data-howto-tab]');
+    if (!tab) return;
+    const box = tab.closest('[data-howto]'), i = tab.dataset.howtoTab;
+    box.querySelectorAll('[data-howto-tab]').forEach(t => t.setAttribute('aria-selected', String(t === tab)));
+    box.querySelectorAll('[data-howto-panel]').forEach(p => { p.hidden = p.dataset.howtoPanel !== i; });
   });
   root.addEventListener('click', async event => {
     const button = event.target.closest('[data-guide-copy]');
