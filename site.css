@@ -972,26 +972,14 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 .cn-four li{display:grid;gap:12px;align-content:start;padding:18px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,#fff 55%,var(--paper))}
 .cn-four h3{margin:0 0 4px;font-size:16px;letter-spacing:-.02em}
 .cn-four p{margin:0;font-size:13px;line-height:1.6;color:var(--muted);overflow-wrap:anywhere}
-.cn-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px}
-.cn-tabs button{padding:9px 18px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);font:600 14px/1.3 var(--ui);cursor:pointer}
-.cn-tabs button[aria-selected=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.cn-tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .cn-clients-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px}.cn-clients-head h2{margin:0}
 .cn-side p a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 .cn-hero h1{margin-top:0;max-width:680px;font-size:clamp(36px,4.6vw,64px);text-wrap:balance}
-.cn-panel-lead{margin:0 0 14px;color:var(--muted);font-size:14px}
-.cn-steps{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:12px;max-width:760px}
-.cn-steps li{display:flex;gap:14px;align-items:flex-start}
-.cn-steps li p{margin:4px 0 0;font-size:15px;line-height:1.55}
-.cn-steps .cn-num{width:28px;height:28px;background:var(--soft);color:var(--ink)}
-.cn-panel .mcp-way{margin-top:12px;max-width:760px}
 .cn-note{margin-top:22px;padding:16px 18px;border-left:3px solid var(--accent);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--accent) 5%,var(--paper))}
 .cn-note p{margin:6px 0 10px;font-size:14px;line-height:1.6;color:var(--muted)}
 .cn-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
-.cn-group{padding:24px;border:1px solid var(--line);border-radius:24px;background:var(--surface)}
 .cn-group-icon{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:14px;background:var(--soft);color:var(--accent)}
 .cn-group-icon svg{width:22px;height:22px}
-.cn-group h3{margin:14px 0 12px;font-size:18px;letter-spacing:-.02em}
 .cn-group>ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .cn-group li b{font-size:14px}
 .cn-group li p{margin:3px 0 0;font-size:13px;line-height:1.55;color:var(--muted)}
@@ -1000,8 +988,6 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 .cn-tech ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
 .cn-tech code{font-size:11px;padding:2px 6px;border-radius:6px;background:var(--soft);color:var(--ink);overflow-wrap:anywhere}
 .cn-undo{margin:18px 0 0;padding:16px 20px;border-radius:18px;background:color-mix(in srgb,var(--accent) 6%,var(--paper));font-size:14px;line-height:1.6}
-.cn-bubbles{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
-.cn-bubbles li{padding:11px 16px;border-radius:18px 18px 18px 4px;border:1px solid var(--line);background:var(--surface);font-size:15px}
 .cn-trust{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:36px}
 .cn-checks{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:12px}
 .cn-checks li{position:relative;padding-left:34px;font-size:14px;line-height:1.6}
@@ -1014,4 +1000,47 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 .cn-disclaimer{margin:16px 4px 40px;font-size:12px;color:var(--muted)}
 @media(max-width:1050px){.cn-four{grid-template-columns:repeat(2,minmax(0,1fr))}.cn-groups{grid-template-columns:minmax(0,1fr)}.cn-trust{grid-template-columns:minmax(0,1fr);gap:20px}}
 @media(max-width:650px){.cn-card{padding:22px 16px;border-radius:22px}.cn-four{grid-template-columns:minmax(0,1fr)}.cn-band.wrap{width:calc(100% - 24px)}.cn-address .mcp-cmdrow{flex-wrap:wrap}}
+/* коннектор: клиенты как на странице подключений — список слева, панель шагов справа */
+.cn-guide{display:grid;grid-template-columns:230px minmax(0,1fr);gap:26px;margin-top:20px;align-items:start}
+.cn-gnav{display:grid;gap:4px;position:sticky;top:100px}
+.cn-gnav button{display:flex;align-items:center;gap:12px;min-height:50px;padding:10px 12px;border:0;border-left:2px solid transparent;border-radius:10px;background:none;color:var(--ink);font:600 14px/1.3 var(--ui);text-align:left;cursor:pointer}
+.cn-gnav button .guide-mark{width:28px;height:28px}
+.cn-gnav button>span:not(.guide-mark){flex:1}
+.cn-gnav button i{font-style:normal;color:var(--muted);opacity:0}
+.cn-gnav button:hover{background:var(--soft)}
+.cn-gnav button[aria-selected=true]{background:var(--soft);border-left-color:var(--accent)}
+.cn-gnav button[aria-selected=true] i{opacity:1}
+.cn-gnav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cn-gpanel{padding:26px 28px}
+.cn-gpanel .guide-panel-header{padding:22px;border:1px solid color-mix(in srgb,var(--client-wash) 40%,var(--line));border-radius:14px;background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--client-wash) 22%,transparent),transparent 75%),color-mix(in srgb,var(--client-wash) 7%,var(--surface));box-shadow:0 3px 0 color-mix(in srgb,var(--client-wash) 18%,transparent);margin-bottom:18px}
+.cn-gpanel .guide-panel-heading h3{margin:0;font-size:28px;letter-spacing:-.04em;line-height:1.2}
+.cn-gpanel .guide-panel-heading p{margin:6px 0 0;font-size:13px;color:var(--muted)}
+.cn-gpanel .guide-endpoint span{display:block;font-size:12px;color:var(--muted)}
+.cn-gpanel .guide-steps p{font-size:14px;line-height:1.6;margin:3px 0 0}
+.cn-gpanel .mcp-way{margin-top:6px}
+[data-client=other]{--client:#303d34;--client-wash:#c3d0c6}
+/* что умеет: карточки с меткой */
+.cn-group{padding:0;overflow:hidden;border:1px solid var(--line);border-radius:24px;background:var(--surface)}
+.cn-group-head{display:flex;align-items:center;gap:14px;padding:20px 22px;background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--accent) 9%,transparent),transparent 75%),color-mix(in srgb,var(--accent) 3%,var(--paper));border-bottom:1px solid var(--line)}
+.cn-group-head h3{margin:0;font-size:20px;letter-spacing:-.03em}
+.cn-badge{display:inline-block;margin-top:5px;padding:3px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:11px;font-weight:600;color:var(--muted)}
+.cn-group>ul{padding:6px 22px 4px;gap:0}
+.cn-group>ul>li{padding:14px 0;border-bottom:1px solid var(--line)}
+.cn-group>ul>li:last-child{border-bottom:0}
+.cn-group .cn-tech{margin:0 22px 18px}
+/* примеры просьб: окно чата */
+.cn-examples{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:28px;align-items:center}
+.cn-examples p{margin:0;font-size:15px;line-height:1.6;color:var(--muted)}
+.cn-window{border:1px solid var(--line);border-radius:22px;background:#f6f5f1;overflow:hidden;box-shadow:0 18px 40px #2a2f2212}
+.cn-window-bar{display:flex;align-items:center;gap:6px;padding:12px 16px;background:#fffdf8;border-bottom:1px solid #e6e3da;font-size:13px;font-weight:600;color:#20251c}
+.cn-window-bar i{width:9px;height:9px;border-radius:50%;background:#d8d4ca}
+.cn-window-bar span{margin-left:8px}
+.cn-bubbles{list-style:none;margin:0;padding:18px;display:flex;flex-direction:column;align-items:flex-end;gap:9px}
+.cn-bubbles li{max-width:85%;padding:10px 14px;border-radius:16px 16px 4px 16px;background:#e5ecd9;color:#20251c;font-size:14px;line-height:1.45}
+.cn-bubbles li:nth-child(even){background:#dfe7d0}
+.cn-window-input{display:flex;align-items:center;justify-content:space-between;margin:0 16px 16px;padding:11px 14px;border:1px solid #e6e3da;border-radius:999px;background:#fff;color:#9a9f92;font-size:13px}
+.cn-window-input span{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#5b6b3e;color:#fff}
+.cn-window-input svg{width:15px;height:15px}
+@media(max-width:1050px){.cn-guide{grid-template-columns:minmax(0,1fr)}.cn-gnav{position:static;grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto}.cn-gnav button{border-left:0;border-bottom:2px solid transparent}.cn-gnav button[aria-selected=true]{border-bottom-color:var(--accent)}.cn-examples{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:650px){.cn-gpanel{padding:16px 12px}.cn-gpanel .guide-panel-header{padding:16px 14px}.cn-gpanel .guide-panel-heading h3{font-size:22px}.cn-gpanel .guide-endpoint{flex-wrap:wrap}}
 
