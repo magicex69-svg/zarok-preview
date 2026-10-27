@@ -937,7 +937,7 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 .cn-hero .crs-hero-copy p{max-width:560px}
 .cn-address{margin-top:26px;padding:16px 18px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,#fff 55%,var(--paper));max-width:520px}
 .cn-address>span{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
-.cn-address .mcp-cmdrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.cn-address .mcp-cmdrow code{flex:1 1 200px;min-width:0}
+.cn-address .mcp-cmdrow{display:flex;flex-direction:row;align-items:center;gap:10px;flex-wrap:wrap}.cn-address .mcp-cmdrow code{flex:1 1 200px;min-width:0}
 .cn-chat-input{margin:auto 14px 26px;padding:12px 16px;border:1px solid #e6e3da;border-radius:999px;background:#fff;color:#9a9f92;font-size:13px}
 .cn-address small{display:block;margin-top:8px;font-size:12px;line-height:1.5;color:var(--muted)}
 .cn-chat{display:flex;flex-direction:column;height:100%;background:#f6f5f1}
@@ -1036,7 +1036,7 @@ html[data-motion=reduce] .cn-ex.on *{animation:none!important}
 .cn-gnav.fx-tabs button .guide-mark{flex:none;width:34px;height:34px;padding:6px;border-radius:11px;background:var(--soft)}
 .cn-gnav.fx-tabs button[aria-selected=true] .guide-mark{background:#fff;box-shadow:0 0 0 1px var(--line)}
 .cn-gpanel .guide-panel-header{border-color:color-mix(in srgb,var(--accent) 10%,var(--line));background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--client-wash) 16%,transparent),transparent 75%),color-mix(in srgb,#fff 60%,var(--paper));box-shadow:0 8px 24px #2a2f220a}
-.cn-abpanels{display:grid}
+.cn-abpanels{display:grid;grid-template-columns:minmax(0,1fr)}
 .cn-abpanels>[role=tabpanel]{grid-area:1/1}
 .cn-abpanels>[role=tabpanel][hidden]{display:block;visibility:hidden}
 .cn-abpanel{padding:22px 24px;border:1px solid color-mix(in srgb,var(--accent) 10%,var(--line));border-radius:20px;background:color-mix(in srgb,#fff 60%,var(--paper));box-shadow:0 8px 24px #2a2f220a}
@@ -1073,6 +1073,7 @@ html[data-motion=reduce] .cn-ex.on *{animation:none!important}
 .cn-abtabs button[aria-selected=true] svg{background:var(--accent);stroke:var(--on-accent,#fff)}
 .cn-abtabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .cn-abbody{display:grid;grid-template-columns:270px minmax(0,1fr);gap:18px;margin-top:16px;align-items:start}
+@media(max-width:1050px){.cn-abbody{grid-template-columns:minmax(0,1fr)}}
 /* вход на странице подключения — светлая плашка со значком */
 .cn-note{display:flex;gap:14px;align-items:flex-start;margin-top:20px;padding:18px 20px;border:1px solid color-mix(in srgb,var(--accent) 10%,var(--line));border-radius:18px;background:color-mix(in srgb,#fff 60%,var(--paper));box-shadow:0 8px 24px #2a2f220a}
 .cn-note h3{margin:2px 0 6px;font-size:16px;letter-spacing:-.02em}
