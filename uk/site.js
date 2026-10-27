@@ -152,7 +152,7 @@ document.addEventListener('click',async function(e){
   try{await navigator.clipboard.writeText(b.getAttribute('data-copy'));b.textContent=b.getAttribute('data-copied-label');setTimeout(function(){b.textContent=b.getAttribute('data-copy-label');},1600);}catch(err){}
 });
 
-/* Язык сайта (с 18 октября 2026: английский в корне, русский под /ru/). Выбор в переключателе запоминается в cookie zarok_lang
+/* Мова сайта (с 18 октября 2026: английский в корне, русский под /ru/). Выбор в переключателе запоминается в cookie zarok_lang
    на год: с ней сервер открывает старые адреса сразу на выбранном языке, а страница подключения ИИ-клиента и письма без аккаунта
    говорят на нём же. Это не слежка, а настройка, которую человек выбрал сам. Строки «Этот сайт есть и на …» сверху нет (решение владельца, 26 октября 2026):
    кто открыл английскую версию, видит только английскую, и наоборот; сменить язык можно переключателем в шапке. */
@@ -220,7 +220,7 @@ document.addEventListener('click',function(e){
 })();
 
 /* меню «Відкрити застосунок»: закрывается по касанию мимо и по Esc */
-document.querySelectorAll('.open-menu').forEach(m=>{
+document.querySelectorAll('.open-menu,.lang-menu').forEach(m=>{
   document.addEventListener('click',e=>{if(m.open&&!m.contains(e.target))m.open=false;});
   m.addEventListener('keydown',e=>{if(e.key==='Escape'&&m.open){m.open=false;m.querySelector('summary').focus();}});
 });

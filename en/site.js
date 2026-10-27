@@ -213,7 +213,7 @@ document.addEventListener('click',function(e){
 })();
 
 
-document.querySelectorAll('.open-menu').forEach(m=>{
+document.querySelectorAll('.open-menu,.lang-menu').forEach(m=>{
   document.addEventListener('click',e=>{if(m.open&&!m.contains(e.target))m.open=false;});
   m.addEventListener('keydown',e=>{if(e.key==='Escape'&&m.open){m.open=false;m.querySelector('summary').focus();}});
 });

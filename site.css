@@ -456,7 +456,6 @@ html:not([data-site-theme=porcelain]) .guide-directory-group a[data-client][aria
    вкладки и образцы оформления на главной. Вид прежний: растёт только высота строки и поля вокруг. */
 @media(max-width:850px){
 .brand{min-height:40px}
-.site-header .lang-switch,.footer-top .lang-switch{display:inline-flex;align-items:center;justify-content:center;min-height:40px;min-width:40px}
 .footer-top>div{gap:0}
 .footer-top>div>span{margin-bottom:4px}
 .footer-top>div>a:not(.brand),.footer-top>div>button{display:inline-flex;align-items:center;min-height:40px;min-width:40px}
@@ -651,8 +650,9 @@ body:has(.hero-page) .site-header .brand img{width:calc(30px + 6px * var(--k));h
 .hero-copy{position:absolute;z-index:3;left:0;right:0;top:50%;transform:translateY(-50%);pointer-events:none}
 .hero-copy>*{pointer-events:auto}
 .hero-page .hero-mark{position:relative;display:inline-block;margin:0;font:800 clamp(80px,11.6vw,214px)/.9 Unbounded,var(--ui);letter-spacing:-.07em;color:#596940;padding-right:.18em}
-.hero-page .hero-tag{margin-top:.6em;font:700 clamp(18px,2.05vw,38px)/1.2 var(--ui);letter-spacing:-.03em;color:#272d25;white-space:nowrap}
-@media(max-width:850px){/* на телефоне — крупнее: верх экрана уходит за кадр, телефон и Топа сразу под знаком, верхний край картинки растворяется в фоне */.hero-stage{position:relative;overflow:hidden;aspect-ratio:1/1;margin-top:-4vw;-webkit-mask-image:linear-gradient(transparent,#000 22%);mask-image:linear-gradient(transparent,#000 22%)}.hero-art{position:absolute;width:250%;left:-145%;bottom:-9.3%}.hero-copy{position:relative;top:auto;transform:none;padding-top:92px}.hero-page{display:flex;flex-direction:column-reverse}.hero-page .hero-mark{font-size:24vw}.hero-page .hero-tag{white-space:normal;font-size:clamp(20px,5.6vw,30px)}}
+/* подпись под знаком — тем же курсивом с засечками, что «понятнее.» и «clearer.» в заголовках (владелец, 27 октября 2026) */
+.hero-page .hero-tag{margin-top:.5em;font:italic 400 clamp(22px,2.6vw,48px)/1.15 Georgia,'Times New Roman',serif;letter-spacing:-.02em;color:#272d25;white-space:nowrap}
+@media(max-width:850px){/* на телефоне — крупнее: верх экрана уходит за кадр, телефон и Топа сразу под знаком, верхний край картинки растворяется в фоне */.hero-stage{position:relative;overflow:hidden;aspect-ratio:1/1;margin-top:-4vw;-webkit-mask-image:linear-gradient(transparent,#000 22%);mask-image:linear-gradient(transparent,#000 22%)}.hero-art{position:absolute;width:250%;left:-145%;bottom:-9.3%}.hero-copy{position:relative;top:auto;transform:none;padding-top:92px}.hero-page{display:flex;flex-direction:column-reverse}.hero-page .hero-mark{font-size:24vw}.hero-page .hero-tag{white-space:normal;font-size:clamp(24px,6.6vw,36px)}}
 
 /* «Один день с Зароком»: сцена во весь блок, телефон с экраном шага справа, заголовок и вкладки — на карточке слева */
 .day-page{position:relative;overflow:hidden}
@@ -691,7 +691,7 @@ body:has(.hero-page) .site-header .brand img{width:calc(30px + 6px * var(--k));h
 
 /* язык — глобус; «Открыть приложение» — одно меню: на телефоне (Android и Telegram) или на компьютере (веб-панель) */
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-.lang-switch svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
+.lang-menu>summary svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
 .open-menu{position:relative}
 .open-menu>summary{list-style:none;cursor:pointer}.open-menu>summary::-webkit-details-marker{display:none}
 .open-pop{position:absolute;right:0;top:calc(100% + 10px);z-index:30;display:grid;gap:4px;min-width:250px;padding:8px;border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:0 22px 50px #23291d24}
@@ -878,3 +878,6 @@ body:has(.hero-page) .site-header .brand img{width:calc(30px + 6px * var(--k));h
 .crs-section+.mcp-section{padding-top:70px}
 .fx-screen>img{display:block;width:100%;height:100%;object-fit:cover}
 @media(min-width:851px){.crs-hero h1{white-space:nowrap}}
+.lang-menu{position:relative}.lang-menu>summary{display:inline-flex;align-items:center;justify-content:center;min-height:40px;min-width:40px;list-style:none;cursor:pointer;color:var(--ink)}.lang-menu>summary::-webkit-details-marker{display:none}
+.lang-pop{min-width:180px}.lang-pop a,.lang-pop span{padding:11px 14px;font-size:14px}
+.lang-pop span{display:flex;justify-content:space-between;border-radius:14px;background:var(--soft);font-weight:700;color:var(--ink)}.lang-pop span::after{content:'✓';color:var(--accent)}
