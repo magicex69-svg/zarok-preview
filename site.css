@@ -974,8 +974,6 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 .cn-four p{margin:0;font-size:13px;line-height:1.6;color:var(--muted);overflow-wrap:anywhere}
 .cn-clients-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px}.cn-clients-head h2{margin:0}
 .cn-hero h1{margin-top:0;max-width:680px;font-size:clamp(36px,4.6vw,64px);text-wrap:balance}
-.cn-note{margin-top:22px;padding:16px 18px;border-left:3px solid var(--accent);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--accent) 5%,var(--paper))}
-.cn-note p{margin:6px 0 10px;font-size:14px;line-height:1.6;color:var(--muted)}
 .cn-tech{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
 .cn-tech summary{cursor:pointer}
 .cn-tech ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
@@ -1011,7 +1009,11 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 @media(max-width:1050px){.cn-guide{grid-template-columns:minmax(0,1fr)}.cn-examples{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:650px){.cn-gpanel{padding:16px 12px}.cn-gpanel .guide-panel-header{padding:16px 14px}.cn-gpanel .guide-panel-heading h3{font-size:22px}.cn-gpanel .guide-endpoint{flex-wrap:wrap}}
 /* коннектор: названия клиентов в заголовке своими цветами */
-.cn-claude,.cn-gpt{background:linear-gradient(100deg,var(--ink) 0%,var(--cn-c) 55%,color-mix(in srgb,var(--cn-c) 55%,#fff) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--cn-c) 28%,transparent))}
+.cn-claude,.cn-gpt{background:linear-gradient(100deg,var(--ink) 0%,var(--cn-c) 25%,color-mix(in srgb,var(--cn-c) 50%,#fff) 50%,var(--cn-c) 75%,var(--ink) 100%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--cn-c) 28%,transparent));animation:cn-shine 12s ease-in-out infinite alternate}
+.cn-gpt{animation-delay:-6s}
+@keyframes cn-shine{to{background-position:100% 0}}
+html[data-motion=reduce] .cn-claude,html[data-motion=reduce] .cn-gpt{animation:none}
+@media(prefers-reduced-motion:reduce){.cn-claude,.cn-gpt{animation:none}}
 .cn-claude{--cn-c:#b8775c}
 .cn-gpt{--cn-c:#4f9a83}
 /* адрес: кнопка копирования по высоте строки */
@@ -1031,24 +1033,16 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 .cn-ex.on .cn-ex-bot{animation:fx-in .45s ease 1.1s both}
 html[data-motion=reduce] .cn-ex.on *{animation:none!important}
 /* данные и приватность: плитки со ссылками на статьи */
-.cn-tiles{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.cn-tiles li{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,#fff 55%,var(--paper))}
 .cn-tile-ic{display:inline-grid;place-items:center;flex:none;width:34px;height:34px;border-radius:11px;background:var(--soft);color:var(--accent)}
 .cn-tile-ic svg{width:18px;height:18px}
-.cn-tiles p{margin:0;font-size:14px;line-height:1.55}
 .cn-more{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;font-weight:600;color:var(--accent);text-decoration:none}
 .cn-more svg{width:14px;height:14px}
 .cn-more:hover{text-decoration:underline}
-@media(max-width:1050px){.cn-tiles{grid-template-columns:minmax(0,1fr)}}
 /* коннектор: кнопки клиентов и «Что умеет» — стеклянные плашки, как в «День становится понятнее» */
-.cn-gnav.fx-tabs button{border-left:1px solid transparent;min-height:56px}
+.cn-gnav.fx-tabs button{min-height:56px}
 .cn-gnav.fx-tabs button .guide-mark{flex:none;width:34px;height:34px;padding:6px;border-radius:11px;background:var(--soft)}
 .cn-gnav.fx-tabs button[aria-selected=true] .guide-mark{background:#fff;box-shadow:0 0 0 1px var(--line)}
 .cn-gpanel .guide-panel-header{border-color:color-mix(in srgb,var(--accent) 10%,var(--line));background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--client-wash) 16%,transparent),transparent 75%),color-mix(in srgb,#fff 60%,var(--paper));box-shadow:0 8px 24px #2a2f220a}
-.cn-abbody{display:grid;grid-template-columns:260px minmax(0,1fr);gap:26px;margin-top:20px;align-items:stretch}
-.cn-abtabs{align-content:start}
-.cn-abtabs button span{display:flex;flex-direction:column;gap:2px}
-.cn-abtabs button small{font-size:12px;font-weight:500;color:var(--muted)}
 .cn-abpanels{display:grid}
 .cn-abpanels>[role=tabpanel]{grid-area:1/1}
 .cn-abpanels>[role=tabpanel][hidden]{display:block;visibility:hidden}
@@ -1064,12 +1058,39 @@ html[data-motion=reduce] .cn-ex.on *{animation:none!important}
 /* данные и приватность: поддержка и документы — полосой под плитками */
 
 .cn-help{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:12px}
-.cn-help-card{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border-radius:18px;background:color-mix(in srgb,var(--accent) 5%,var(--paper));border:1px solid color-mix(in srgb,var(--accent) 12%,var(--line))}
+.cn-help-card{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border-radius:18px;background:color-mix(in srgb,#fff 60%,var(--paper));border:1px solid color-mix(in srgb,var(--accent) 10%,var(--line));box-shadow:0 8px 24px #2a2f220a}
 .cn-help-card h3{margin:2px 0 6px;font-size:17px;letter-spacing:-.02em}
 .cn-help-card p{margin:0;font-size:14px;line-height:1.6;color:var(--muted)}
 .cn-help-card p a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 .cn-chips{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
 .cn-chips a{display:inline-block;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);font-size:13px;text-decoration:none}
 .cn-chips a:hover{border-color:var(--ink)}
-@media(max-width:1050px){.cn-abbody{grid-template-columns:minmax(0,1fr)}.cn-abitems{grid-template-columns:minmax(0,1fr)}.cn-help{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:1050px){.cn-abitems{grid-template-columns:minmax(0,1fr)}.cn-help{grid-template-columns:minmax(0,1fr)}.cn-pgroups{grid-template-columns:minmax(0,1fr)}}
+/* «Что клиент может делать»: заголовок и фильтры на одной плашке, пункты ниже */
+.cn-abhead{padding:24px 26px;border:1px solid color-mix(in srgb,var(--accent) 10%,var(--line));border-radius:20px;background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--accent) 5%,transparent),transparent 70%),color-mix(in srgb,#fff 60%,var(--paper));box-shadow:0 10px 30px #2a2f220a}
+.cn-abhead .cn-head{margin:0 0 18px}
+.cn-abtabs{display:flex;flex-wrap:wrap;gap:10px}
+.cn-abtabs button{display:flex;align-items:center;gap:12px;padding:10px 18px 10px 10px;border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);font:inherit;text-align:left;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}
+.cn-abtabs button svg{flex:none;width:38px;height:38px;padding:9px;border-radius:12px;background:var(--soft);fill:none;stroke:currentColor;stroke-width:1.7}
+.cn-abtabs button span{display:flex;flex-direction:column;gap:1px}
+.cn-abtabs button b{font-size:17px;letter-spacing:-.02em}
+.cn-abtabs button small{font-size:13px;color:var(--muted)}
+.cn-abtabs button:hover{border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.cn-abtabs button[aria-selected=true]{background:#fff;border-color:color-mix(in srgb,var(--accent) 30%,var(--line));box-shadow:0 8px 22px #2a2f2212}
+.cn-abtabs button[aria-selected=true] svg{background:var(--accent);stroke:var(--on-accent,#fff)}
+.cn-abtabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cn-abbody{margin-top:16px}
+/* вход на странице подключения — светлая плашка со значком */
+.cn-note{display:flex;gap:14px;align-items:flex-start;margin-top:20px;padding:18px 20px;border:1px solid color-mix(in srgb,var(--accent) 10%,var(--line));border-radius:18px;background:color-mix(in srgb,#fff 60%,var(--paper));box-shadow:0 8px 24px #2a2f220a}
+.cn-note h3{margin:2px 0 6px;font-size:16px;letter-spacing:-.02em}
+.cn-note p{margin:0;font-size:14px;line-height:1.6;color:var(--muted)}
+/* данные и приватность: три темы */
+.cn-pgroups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
+.cn-pgroup{border:1px solid color-mix(in srgb,var(--accent) 10%,var(--line));border-radius:22px;background:color-mix(in srgb,#fff 60%,var(--paper));box-shadow:0 8px 24px #2a2f220a;overflow:hidden}
+.cn-pgroup header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--accent) 9%,transparent),transparent 75%)}
+.cn-pgroup h3{margin:0;font-size:17px;letter-spacing:-.02em}
+.cn-pgroup ul{list-style:none;margin:0;padding:6px 20px 10px}
+.cn-pgroup li{padding:12px 0;border-bottom:1px solid var(--line)}
+.cn-pgroup li:last-child{border-bottom:0}
+.cn-pgroup p{margin:0;font-size:14px;line-height:1.55}
 
