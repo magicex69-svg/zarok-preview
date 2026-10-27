@@ -255,6 +255,12 @@ document.querySelectorAll('[data-cn-examples]').forEach(win=>{const cards=[...wi
   new IntersectionObserver(es=>es.forEach(e=>{seen=e.isIntersecting;if(seen)go(cur,4500);else clearTimeout(timer);}),{threshold:.4}).observe(win);
 });
 
+document.querySelectorAll('[data-cn-cycle]').forEach(box=>{const items=[...box.children];let cur=0,timer=0;
+  const calm=()=>document.documentElement.dataset.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const next=wait=>{clearTimeout(timer);timer=setTimeout(()=>{if(!calm()&&!document.hidden){items[cur].classList.remove('on');cur=(cur+1)%items.length;items[cur].classList.add('on');}next(3600);},wait);};
+  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)next(3600+(+box.dataset.cnDelay||0));else clearTimeout(timer);})).observe(box);
+});
+
 
 document.querySelectorAll('[data-icon-cycle]').forEach(box=>{
   const faces=[...box.querySelectorAll('img')],name=box.querySelector('[data-icon-name]');let i=0,timer=0;

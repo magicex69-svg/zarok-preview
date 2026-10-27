@@ -942,7 +942,9 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 .cn-address small{display:block;margin-top:8px;font-size:12px;line-height:1.5;color:var(--muted)}
 .cn-chat{display:flex;flex-direction:column;height:100%;background:#f6f5f1}
 .cn-chat-head{display:flex;align-items:center;gap:9px;padding:42px 18px 14px;background:#fffdf8;border-bottom:1px solid #e6e3da;font-size:15px}
-.cn-chat-dot{width:22px;height:22px;border-radius:50%;background:conic-gradient(#c9c5ba,#8c887d,#c9c5ba)}
+.cn-chat-ava{display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:50%;background:#efeee8;color:#5b6b3e}.cn-chat-ava svg{width:16px;height:16px}
+.cn-chat-who{display:grid;line-height:1.2}.cn-chat-who small{display:flex;align-items:center;gap:5px;margin-top:2px;font-size:11px;color:#6d7766}
+.cn-chat-who small::before{content:'';width:6px;height:6px;border-radius:50%;background:#6aa36f}
 .cn-chat-msgs{display:flex;flex-direction:column;gap:10px;padding:18px 14px}
 .cn-chat-msgs .me{align-self:flex-end;max-width:80%;margin:0;padding:10px 13px;border-radius:16px 16px 4px 16px;background:#e5ecd9;color:#20251c;font-size:14px}
 .cn-chat-tool{display:flex;align-items:center;gap:7px;font-size:12px;color:#6d7766}
@@ -1125,3 +1127,23 @@ html[data-motion=reduce] .guide-ready .guide-panel:not([hidden]){animation:none}
 .guide-legal{margin-top:14px;font-size:12px;color:var(--muted)}
 @media(max-width:850px){.guide-off-cards{grid-template-columns:minmax(0,1fr)}.guide-access-grid,.guide-access-grid.is-two{grid-template-columns:minmax(0,1fr)}}
 
+/* коннектор, первый экран: телефон развёрнут в пространстве, рядом две стеклянные плашки, которые плавно сменяют записи */
+.cn-hero{grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:40px}
+.cn-stage{position:relative;justify-self:end;width:100%;max-width:560px;height:640px;perspective:1400px}
+.cn-tilt{position:absolute;right:20px;top:20px;transform-style:preserve-3d;transform:rotateY(-24deg) rotateX(6deg) rotateZ(3deg);animation:cn-sway 9s ease-in-out infinite alternate}
+.cn-tilt .fx-phone{--w:300px;box-shadow:-40px 50px 80px #23291d38}
+@keyframes cn-sway{to{transform:rotateY(-14deg) rotateX(4deg) rotateZ(1deg)}}
+.cn-float{position:absolute;z-index:2;display:grid;padding:12px 14px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--surface) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 18px 40px #23291d1f;font-size:13px;color:var(--ink);animation:cn-float 6s ease-in-out infinite alternate}
+.cn-float-item{grid-area:1/1;display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(8px);filter:blur(3px);transition:opacity .8s ease,transform .8s ease,filter .8s ease}
+.cn-float-item.on{opacity:1;transform:none;filter:none}
+.cn-float-done{left:0;bottom:110px;width:330px}
+.cn-float-done u{margin-left:auto;text-decoration:none;color:var(--accent);font-weight:700}
+.cn-float-ok{display:grid;place-items:center;flex:none;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--on-accent)}.cn-float-ok svg{width:14px;height:14px;stroke-width:2.4}
+.cn-float-read{left:20px;top:120px;width:250px;animation-duration:7s;animation-direction:alternate-reverse}
+.cn-float-read img{flex:none;border-radius:8px}
+.cn-float-read .cn-float-item>span{display:grid;line-height:1.35}.cn-float-read small{font-size:11px;color:var(--muted)}
+@keyframes cn-float{to{translate:0 -10px}}
+@media(prefers-reduced-motion:reduce){.cn-tilt,.cn-float{animation:none}.cn-float-item{transition:none}}
+html[data-motion=reduce] .cn-tilt,html[data-motion=reduce] .cn-float{animation:none}html[data-motion=reduce] .cn-float-item{transition:none}
+@media(max-width:850px){.cn-hero{grid-template-columns:minmax(0,1fr)}.cn-stage{justify-self:center;max-width:520px;height:580px}}
+@media(max-width:650px){.cn-stage{height:500px;overflow:hidden;margin:-10px -16px 0;width:calc(100% + 32px);max-width:none}.cn-tilt{right:36px}.cn-tilt .fx-phone{--w:220px}.cn-float-done{left:12px;bottom:40px;width:min(300px,calc(100% - 24px))}.cn-float-read{display:none}}

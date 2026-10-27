@@ -264,6 +264,12 @@ document.querySelectorAll('[data-cn-examples]').forEach(win=>{const cards=[...wi
   dots.forEach((d,i)=>d.addEventListener('click',()=>go(i,10000)));
   new IntersectionObserver(es=>es.forEach(e=>{seen=e.isIntersecting;if(seen)go(cur,4500);else clearTimeout(timer);}),{threshold:.4}).observe(win);
 });
+/* коннектор, первый экран: плашки у телефона сменяют записи каждые 3,6 с (вторая — со сдвигом), пока видны; при «меньше движения» стоят на первой */
+document.querySelectorAll('[data-cn-cycle]').forEach(box=>{const items=[...box.children];let cur=0,timer=0;
+  const calm=()=>document.documentElement.dataset.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const next=wait=>{clearTimeout(timer);timer=setTimeout(()=>{if(!calm()&&!document.hidden){items[cur].classList.remove('on');cur=(cur+1)%items.length;items[cur].classList.add('on');}next(3600);},wait);};
+  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)next(3600+(+box.dataset.cnDelay||0));else clearTimeout(timer);})).observe(box);
+});
 /* «Сначала ваши слова»: разговор проигрывается, пока блок на экране — фраза набирается в поле, уходит, приходят ответ и план,
    галочки отмечаются, «Применить», «Готово»; пауза и заново. При «меньше движения» виден итог (без класса run) */
 /* «Можливості»: лица ярлыка «Зарок» сменяются каждые 2 с, пока полоса значков на экране */
