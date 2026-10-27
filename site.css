@@ -1043,4 +1043,34 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 .cn-window-input svg{width:15px;height:15px}
 @media(max-width:1050px){.cn-guide{grid-template-columns:minmax(0,1fr)}.cn-gnav{position:static;grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto}.cn-gnav button{border-left:0;border-bottom:2px solid transparent}.cn-gnav button[aria-selected=true]{border-bottom-color:var(--accent)}.cn-examples{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:650px){.cn-gpanel{padding:16px 12px}.cn-gpanel .guide-panel-header{padding:16px 14px}.cn-gpanel .guide-panel-heading h3{font-size:22px}.cn-gpanel .guide-endpoint{flex-wrap:wrap}}
+/* коннектор: названия клиентов в заголовке своими цветами */
+.cn-claude{color:#c96442}
+.cn-gpt{color:#10a37f}
+/* адрес: кнопка копирования по высоте строки */
+.cn-address .mcp-cmdrow{align-items:stretch}
+.cn-address .mcp-address{margin:0}
+.cn-address .mcp-copy{display:inline-flex;align-items:center;justify-content:center;align-self:stretch;padding:0 22px;border-radius:18px;font-size:14px;min-height:52px}
+/* примеры просьб: карточки сменяются сами — просьба, затем ответ Зарока */
+.cn-ex-dots{display:flex;gap:8px;margin-top:20px}
+.cn-ex-dots button{width:28px;height:6px;padding:0;border:0;border-radius:3px;background:var(--line);cursor:pointer;transition:background .2s,width .2s}
+.cn-ex-dots button[aria-selected=true]{width:44px;background:var(--accent)}
+.cn-ex-stage{position:relative;min-height:230px;padding:22px 18px 10px}
+.cn-ex{display:flex;flex-direction:column;gap:10px}
+.cn-ex-me{align-self:flex-end;max-width:85%;margin:0;padding:11px 15px;border-radius:16px 16px 4px 16px;background:#e5ecd9;color:#20251c;font-size:15px;line-height:1.45}
+.cn-ex-bot{align-self:flex-start;max-width:88%;margin:0;padding:12px 15px;border-radius:4px 16px 16px 16px;background:#fff;color:#20251c;font-size:15px;line-height:1.5;box-shadow:0 2px 8px #2a2f220d}
+.cn-ex.on .cn-ex-me{animation:fx-in .4s ease both}
+.cn-ex.on .cn-chat-tool{animation:fx-in .4s ease .7s both}
+.cn-ex.on .cn-ex-bot{animation:fx-in .45s ease 1.1s both}
+html[data-motion=reduce] .cn-ex.on *{animation:none!important}
+/* данные и приватность: плитки со ссылками на статьи */
+.cn-tiles{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cn-tiles li{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,#fff 55%,var(--paper))}
+.cn-tile-ic{display:inline-grid;place-items:center;flex:none;width:34px;height:34px;border-radius:11px;background:var(--soft);color:var(--accent)}
+.cn-tile-ic svg{width:18px;height:18px}
+.cn-tiles p{margin:0;font-size:14px;line-height:1.55}
+.cn-more{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;font-weight:600;color:var(--accent);text-decoration:none}
+.cn-more svg{width:14px;height:14px}
+.cn-more:hover{text-decoration:underline}
+.cn-trust{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+@media(max-width:1050px){.cn-tiles{grid-template-columns:minmax(0,1fr)}}
 

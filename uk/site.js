@@ -257,6 +257,13 @@ document.querySelectorAll('[data-cn-tabs]').forEach(box=>{const tabs=[...box.que
   const show=i=>{tabs.forEach((t,k)=>{t.setAttribute('aria-selected',String(k===i));t.tabIndex=k===i?0:-1;});panels.forEach((p,k)=>p.hidden=k!==i);};
   tabs.forEach((t,i)=>{t.addEventListener('click',()=>show(i));t.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key];if(!d)return;e.preventDefault();const n=(i+d+tabs.length)%tabs.length;show(n);tabs[n].focus();});});
 });
+/* коннектор, «Примеры просьб»: карточки сменяются сами каждые 4,5 с, пока окно на экране; полоски выбирают карточку и держат её 10 с */
+document.querySelectorAll('[data-cn-examples]').forEach(win=>{const cards=[...win.querySelectorAll('[data-ex-card]')],dots=[...win.closest('.cn-examples').querySelectorAll('[data-ex]')];
+  const calm=()=>document.documentElement.dataset.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches;let cur=0,timer=0,seen=false;
+  const go=(i,wait)=>{cur=i;cards.forEach((c,k)=>{c.hidden=k!==i;c.classList.toggle('on',k===i);});dots.forEach((d,k)=>d.setAttribute('aria-selected',String(k===i)));clearTimeout(timer);if(seen&&!calm())timer=setTimeout(()=>go((cur+1)%cards.length,4500),wait);};
+  dots.forEach((d,i)=>d.addEventListener('click',()=>go(i,10000)));
+  new IntersectionObserver(es=>es.forEach(e=>{seen=e.isIntersecting;if(seen)go(cur,4500);else clearTimeout(timer);}),{threshold:.4}).observe(win);
+});
 /* «Сначала ваши слова»: разговор проигрывается, пока блок на экране — фраза набирается в поле, уходит, приходят ответ и план,
    галочки отмечаются, «Применить», «Готово»; пауза и заново. При «меньше движения» виден итог (без класса run) */
 /* «Можливості»: лица ярлыка «Зарок» сменяются каждые 2 с, пока полоса значков на экране */
