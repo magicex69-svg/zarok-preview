@@ -35,7 +35,7 @@
       if(historyMode==='push')history.pushState({helpSlug:slug},'',url);
       document.title=slug?(titles.get(slug)+' — довідка Зарока'):'Довідка — Зарок';const canonical=document.querySelector('link[rel=canonical]');if(canonical)canonical.href='https://zarok.app'+HELP+(slug?'/'+slug:'');
       bindOutline();bindGalleries();status.textContent=slug?'Відкрито статтю: '+titles.get(slug):'Відкрито всі розділи';const target=url.hash?document.getElementById(decodeURIComponent(url.hash.slice(1))):replacement.querySelector('h1');if(moveFocus)replacement.querySelector('h1')?.focus({preventScroll:true});target?.scrollIntoView({block:'start',behavior:'instant'});
-    }catch(error){if(error.name==='AbortError')return;if(serial!==request)return;pane().removeAttribute('aria-busy');status.textContent='Стаття відкриється окремою сторінкою.';location.assign(url.href);}
+    }catch(error){if(error.name==='AbortError')return;if(serial!==request)return;pane().removeAttribute('aria-busy');status.textContent='Стаття відкриється окремою сторінкою.';/* адрес уже этот (назад/вперёд): assign с тем же адресом и #шагом снова дал бы popstate и круг */if(url.href.split('#')[0]===location.href.split('#')[0])location.reload();else location.assign(url.href);}
   }
   center.addEventListener('click',e=>{
     if(e.target.closest('[data-help-open]')){menu(true);return;}if(e.target.closest('[data-help-close]')){menu(false);return;}
@@ -53,6 +53,7 @@
   });
   imageDialog.addEventListener('click',e=>{if(e.target!==imageDialog)return;const r=imageDialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)imageDialog.close();});
   small.addEventListener('change',()=>{if(opened&&!small.matches)menu(false,false);});
-  addEventListener('popstate',()=>{const u=new URL(location.href),slug=location.protocol==='file:'?(u.searchParams.get('article')||''):u.pathname.replace(/\/$/,'').split('/zarok-preview/help/')[1]||'';if(slug&&!titles.has(slug))return;navigate(slug,u,'none',false);});
+  /* переход по шагу внутри статьи (#step-…) тоже даёт popstate: статья та же, прокрутку делает сам браузер — заново её не открываем */
+  addEventListener('popstate',()=>{const u=new URL(location.href),slug=location.protocol==='file:'?(u.searchParams.get('article')||''):u.pathname.replace(/\/$/,'').split(HELP+'/')[1]||'';if(slug&&!titles.has(slug))return;if(slug===pane().dataset.helpCurrent)return;navigate(slug,u,'none',false);});
   const initial=new URL(location.href);if(location.protocol==='file:'&&initial.searchParams.has('article'))navigate(initial.searchParams.get('article'),initial,'none',false);else{bindOutline();bindGalleries();}
 })();

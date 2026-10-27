@@ -1,4 +1,7 @@
 const KEY='zarok.site.preferences.v1';
+/* выбранное оформление держится, пока открыта вкладка (владелец, 27.10.2026): sessionStorage стирается с закрытием вкладки и относится к
+   «Основным функциям»; между визитами тема запоминается только с разрешением «Запам’ятовувати оформлення» (localStorage, KEY) */
+const TAB_KEY='zarok.site.theme.tab';
 const themes=['porcelain','obsidian','cobalt','copper'];
 const names={porcelain:'Порцеляна',obsidian:'Обсидіан',cobalt:'Кобальт',copper:'Мідь'};
 const media=window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -11,6 +14,7 @@ try{
     if(preferences.rememberDesign&&themes.includes(stored.material))material=stored.material;
   }else if(stored&&Number.isFinite(stored.updatedAt)&&Date.now()-stored.updatedAt>=365*86400000){localStorage.removeItem(KEY);}
 }catch{}
+if(material==='porcelain'&&!preferences.rememberDesign){try{const t=sessionStorage.getItem(TAB_KEY);if(themes.includes(t))material=t;}catch{}}
 const isReduced=()=>preferences.reducedMotion===true||media.matches;
 const motionHooks=[];
 function applyMotion(){document.documentElement.dataset.motion=isReduced()?'reduce':'normal';motionHooks.forEach(f=>f());}
@@ -25,6 +29,7 @@ function setMaterial(value,save=false){
   material=value;document.documentElement.dataset.siteTheme=value;
   document.querySelector('meta[name="theme-color"]').content={porcelain:'#f6f4ee',obsidian:'#151914',cobalt:'#151e30',copper:'#281e1e'}[value];
   const control=document.querySelector('[data-cycle-theme]');if(control)control.setAttribute('aria-label','Оформлення сайту: '+names[value]+'. Перемкнути');
+  if(save){try{sessionStorage.setItem(TAB_KEY,value);}catch{}}
   if(save&&preferences.rememberDesign&&!persist())toast('Не вдалося зберегти оформлення в цьому браузері.');
 }
 setMaterial(material);applyMotion();
@@ -135,7 +140,7 @@ document.querySelector('[data-preferences-essential]').addEventListener('click',
   preferences={...defaults};applyMotion();const ok=persist();dialog.close();toast(ok?'Оформление не будет запоминаться.':'Оформление не запоминается; сохранение выбора недоступно.');
 });
 document.querySelector('[data-preferences-reset]').addEventListener('click',()=>{
-  let ok=true;try{localStorage.removeItem(KEY);}catch{ok=false;}
+  let ok=true;try{localStorage.removeItem(KEY);sessionStorage.removeItem(TAB_KEY);}catch{ok=false;}
   preferences={...defaults};setMaterial('porcelain');
   applyMotion();dialog.close();toast(ok?'Збережені налаштування сайту видалено.':'Налаштування скинуто на сторінці; браузер не дозволив видалити збереження.');
 });

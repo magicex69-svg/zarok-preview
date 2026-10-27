@@ -1,4 +1,6 @@
 const KEY='zarok.site.preferences.v1';
+
+const TAB_KEY='zarok.site.theme.tab';
 const themes=['porcelain','obsidian','cobalt','copper'];
 const names={porcelain:'Porcelain',obsidian:'Obsidian',cobalt:'Cobalt',copper:'Copper'};
 const media=window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -11,6 +13,7 @@ try{
     if(preferences.rememberDesign&&themes.includes(stored.material))material=stored.material;
   }else if(stored&&Number.isFinite(stored.updatedAt)&&Date.now()-stored.updatedAt>=365*86400000){localStorage.removeItem(KEY);}
 }catch{}
+if(material==='porcelain'&&!preferences.rememberDesign){try{const t=sessionStorage.getItem(TAB_KEY);if(themes.includes(t))material=t;}catch{}}
 const isReduced=()=>preferences.reducedMotion===true||media.matches;
 const motionHooks=[];
 function applyMotion(){document.documentElement.dataset.motion=isReduced()?'reduce':'normal';motionHooks.forEach(f=>f());}
@@ -25,6 +28,7 @@ function setMaterial(value,save=false){
   material=value;document.documentElement.dataset.siteTheme=value;
   document.querySelector('meta[name="theme-color"]').content={porcelain:'#f6f4ee',obsidian:'#151914',cobalt:'#151e30',copper:'#281e1e'}[value];
   const control=document.querySelector('[data-cycle-theme]');if(control)control.setAttribute('aria-label','Site look: '+names[value]+'. Switch');
+  if(save){try{sessionStorage.setItem(TAB_KEY,value);}catch{}}
   if(save&&preferences.rememberDesign&&!persist())toast('Couldn’t save the look in this browser.');
 }
 setMaterial(material);applyMotion();
@@ -134,7 +138,7 @@ document.querySelector('[data-preferences-essential]').addEventListener('click',
   preferences={...defaults};applyMotion();const ok=persist();dialog.close();toast(ok?'The look won’t be remembered.':'The look isn’t remembered; saving the choice isn’t available.');
 });
 document.querySelector('[data-preferences-reset]').addEventListener('click',()=>{
-  let ok=true;try{localStorage.removeItem(KEY);}catch{ok=false;}
+  let ok=true;try{localStorage.removeItem(KEY);sessionStorage.removeItem(TAB_KEY);}catch{ok=false;}
   preferences={...defaults};setMaterial('porcelain');
   applyMotion();dialog.close();toast(ok?'Saved site settings deleted.':'Settings reset on this page; the browser didn’t allow deleting the saved data.');
 });

@@ -762,7 +762,8 @@ body:has(.hero-page) .site-header .brand img{width:calc(30px + 6px * var(--k));h
 .scenes-band{padding-top:10px}
 .scenes-title{margin:0;font-size:clamp(28px,3vw,40px);letter-spacing:-.04em}
 /* ИИ Зарок и «под вашим управлением» одним блоком */
-.ai-block{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:24px 60px;align-items:center;padding-top:90px;padding-bottom:90px}
+.ai-block{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:24px 60px;align-items:center;padding:48px 56px;margin-top:70px;margin-bottom:70px;border:1px solid var(--line);border-radius:38px;background:var(--surface)}
+.ai-block.wrap{width:min(1320px,calc(100% - 40px))}
 .ai-copy h2{margin:12px 0 14px;font-size:clamp(32px,3.6vw,48px);line-height:1.08;letter-spacing:-.045em}
 .ai-copy>p{margin:0;font-size:15px;line-height:1.6;color:var(--muted)}
 .ai-copy .button{margin-top:24px}
@@ -798,7 +799,7 @@ body:has(.hero-page) .site-header .brand img{width:calc(30px + 6px * var(--k));h
 .ai-trust p svg{flex:none;width:34px;height:34px;padding:8px;border-radius:11px;background:var(--soft);fill:none;stroke:var(--accent);stroke-width:1.7}
 .ai-trust b{display:block;font-size:14px;color:var(--ink)}
 .ai-trust small{display:block;margin-top:16px;font-size:11px;color:var(--muted)}
-@media(max-width:850px){.ai-block{grid-template-columns:1fr}.ai-block .ai-phone{justify-self:center;--w:280px;order:0}.ai-trust>div{grid-template-columns:1fr}}
+@media(max-width:850px){.ai-block{grid-template-columns:minmax(0,1fr);padding:26px 22px;border-radius:28px;margin-top:40px;margin-bottom:40px}.ai-block .ai-phone{justify-self:center;--w:280px;order:0}.ai-trust>div{grid-template-columns:1fr}}
 /* подложки откликаются на прокрутку: выплывают и чуть увеличиваются, пока входят в экран (где браузер это умеет; при «меньше движения» — нет) */
 @supports (animation-timeline:view()){
  html:not([data-motion=reduce]) .glass-panel,html:not([data-motion=reduce]) .fx-player,html:not([data-motion=reduce]) .ai-block .ai-phone{animation:panel-in linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
@@ -937,4 +938,5 @@ html[data-motion=reduce] .tour-steps i{display:none}@media(prefers-reduced-motio
 @keyframes fx-fill{from{-webkit-mask-position:100% 0;mask-position:100% 0}to{-webkit-mask-position:0 0;mask-position:0 0}}
 @keyframes fx-drift{from{background-position:0 0,100% 0,0 0}to{background-position:100% 0,0 0,0 0}}
 @media(prefers-reduced-motion:reduce){.fx-tabs button::after{display:none}}html[data-motion=reduce] .fx-tabs button::after{display:none}
-
+/* плашка блока ИИ Зарока на узких экранах */
+@media(max-width:650px){.ai-block{padding:20px 14px}.ai-block.wrap{width:calc(100% - 24px)}.ai-block .ai-phone{--w:min(260px,100%)}.ai-copy h2{overflow-wrap:break-word}}
